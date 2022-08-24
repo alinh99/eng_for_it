@@ -73,6 +73,7 @@ class _RegisterFormState extends State<RegisterForm> {
           return alert;
         },
       );
+      Navigator.pop(context);
     }
 
     return AnimatedOpacity(
@@ -159,12 +160,18 @@ class _RegisterFormState extends State<RegisterForm> {
                   const SizedBox(
                     height: 40,
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () async {
                       setState(() {
                         showLoaderDialog(context);
                       });
                       try {
+                        final newUser = _auth.signUp(email, password);
+                        if (newUser != null) {
+                          Navigator.pushNamed(context, SuccessfulRegister.id);
+                        } else {
+                          Navigator.pushNamed(context, Error.id);
+                        }
                         final url =
                             await _storage.uploadUserImage(File(image.path));
                         final userInfo = await FirebaseFirestore.instance
@@ -173,34 +180,18 @@ class _RegisterFormState extends State<RegisterForm> {
                             .set({
                           'name': name,
                           'age': age,
+                          'email': email,
                           'password': password,
                           'photo_url': url,
                         });
-                        if (url.isEmpty &&
-                            image.path.isEmpty &&
-                            name.isEmpty &&
-                            age.isEmpty &&
-                            password.isEmpty &&
-                            email.isEmpty) {
-                          Navigator.pushNamed(context, Error.id);
-                        } else if (url.isEmpty ||
-                            image.path.isEmpty ||
-                            name.isEmpty ||
-                            age.isEmpty ||
-                            password.isEmpty ||
-                            email.isEmpty) {
+                        if (url.isEmpty || name.isEmpty || age.isEmpty) {
                           Navigator.pushNamed(context, Error.id);
                         } else if (password.length < 6) {
                           Navigator.pushNamed(context, Error.id);
                         } else if (email != emailFormat) {
                           Navigator.pushNamed(context, Error.id);
-                        } else {
-                          Navigator.pushNamed(context, SuccessfulRegister.id);
-                          return await _auth.signUp(
-                            email,
-                            password,
-                          );
                         }
+                        //Navigator.pushNamed(context, SuccessfulRegister.id);
                         return userInfo;
                       } catch (e) {
                         Navigator.pushNamed(context, Error.id);

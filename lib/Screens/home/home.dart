@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_engforit/Screens/enroll_lesson/listening.dart';
 import 'package:flutter_engforit/Screens/enroll_lesson/reading.dart';
 import 'package:flutter_engforit/Screens/enroll_lesson/speaking.dart';
@@ -9,7 +10,10 @@ import 'package:flutter_engforit/constants.dart';
 import 'package:flutter_engforit/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_engforit/user_models/users.dart';
+import 'package:flutter_engforit/user_services/database.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   static String id = 'home_screen';
@@ -20,6 +24,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Loading..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+    Navigator.of(context).pop();
+  }
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
   int selectedIndex = 0;
   Future<LottieComposition> compositionReading;
   Future<LottieComposition> compositionListening;
@@ -45,72 +72,161 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    //final stores = Provider.of<List<Users>>(context);
+    final user = Provider.of<Users>(context);
     return Scaffold(
       bottomNavigationBar: const CustomBottomNavBar(selected: MenuState.home),
       body: SafeArea(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Container(
-                          alignment: Alignment.topLeft,
-                          margin: const EdgeInsets.only(left: 24),
-                          child: Text(
-                            'Hello,',
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors
-                                    .grey[350] //fontWeight: FontWeight.bold,
+            StreamBuilder(
+              stream: DatabaseService(uid: user.uid).userData,
+              builder: ((context, snapshot) {
+                Users userData = snapshot.data;
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return showLoaderDialog(context);
+                } else if (snapshot.connectionState == ConnectionState.active) {
+                  if (snapshot.hasData) {
+                    return Align(
+                      alignment: Alignment.topLeft,
+                      child: SingleChildScrollView(
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 8,
                                 ),
-                            textAlign: TextAlign.start,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 24),
-                          child: const Text(
-                            'Nguyen Thi My Duyen 👏',
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
+                                Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: const EdgeInsets.only(left: 24),
+                                  child: Text(
+                                    'Hello,',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.grey[
+                                            350] //fontWeight: FontWeight.bold,
+                                        ),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 24),
+                                  child: Text(
+                                    '${userData.name} 👏',
+                                    style: TextStyle(
+                                      fontSize: 28,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 80,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 8),
-                      child: const CircleAvatar(
-                        backgroundColor: Color(0xFFCFD9FF),
-                        radius: 25,
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.white,
+                            const SizedBox(
+                              width: 80,
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 8),
+                              child: const CircleAvatar(
+                                backgroundColor: Color(0xFFCFD9FF),
+                                radius: 25,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                    );
+                  } else {
+                    return Text('Oc cho V1');
+                  }
+                } else {
+                  return Text('Oc cho V2');
+                }
+              }),
+              // builder: (context, snapshot) {
+              //   Users userData = snapshot.data;
+              //   if (snapshot.hasData) {
+              //     return Align(
+              //       alignment: Alignment.topLeft,
+              //       child: SingleChildScrollView(
+              //         physics: const BouncingScrollPhysics(
+              //             parent: AlwaysScrollableScrollPhysics()),
+              //         scrollDirection: Axis.horizontal,
+              //         child: Row(
+              //           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             Column(
+              //               crossAxisAlignment: CrossAxisAlignment.start,
+              //               children: [
+              //                 const SizedBox(
+              //                   height: 8,
+              //                 ),
+              //                 Container(
+              //                   alignment: Alignment.topLeft,
+              //                   margin: const EdgeInsets.only(left: 24),
+              //                   child: Text(
+              //                     'Hello,',
+              //                     style: TextStyle(
+              //                         fontSize: 20,
+              //                         color: Colors.grey[
+              //                             350] //fontWeight: FontWeight.bold,
+              //                         ),
+              //                     textAlign: TextAlign.start,
+              //                   ),
+              //                 ),
+              //                 const SizedBox(
+              //                   height: 4,
+              //                 ),
+              //                 Container(
+              //                   margin: const EdgeInsets.only(left: 24),
+              //                   child: const Text(
+              //                     'Nguyen Thi My Duyen 👏',
+              //                     style: TextStyle(
+              //                       fontSize: 28,
+              //                       color: Colors.black,
+              //                       fontWeight: FontWeight.w500,
+              //                     ),
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //             const SizedBox(
+              //               width: 80,
+              //             ),
+              //             Container(
+              //               margin: const EdgeInsets.only(top: 8),
+              //               child: const CircleAvatar(
+              //                 backgroundColor: Color(0xFFCFD9FF),
+              //                 radius: 25,
+              //                 child: Icon(
+              //                   Icons.person,
+              //                   color: Colors.white,
+              //                 ),
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   } else if (snapshot.hasError) {
+              //     return Text('${snapshot.error}');
+              //   } else {
+              //     return showLoaderDialog(context);
+              //   }
+              // },
             ),
             const SizedBox(
               height: 8,

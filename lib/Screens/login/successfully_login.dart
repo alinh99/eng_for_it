@@ -62,7 +62,7 @@ class _SuccessfulLoginState extends State<SuccessfulLogin> {
                 color: const Color(0xFF8CC4EB),
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: InkWell(
+              child: GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, Home.id);
                 },

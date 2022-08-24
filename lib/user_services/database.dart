@@ -21,10 +21,11 @@ class DatabaseService {
   }
 
   Future updateUserInfo(String name, String password,
-      int age, String image) async {
+      int age, String image, String email) async {
     return await userCollection.doc(uid).set({
       'name':name,
       'password': password,
+      'email': email,
       'age': age,
       'photo_url': image,
     });

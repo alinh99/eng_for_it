@@ -33,6 +33,7 @@ import 'package:flutter_engforit/Screens/lesson_detail/listening_detail.dart';
 import 'package:flutter_engforit/Screens/lesson_detail/reading_detail.dart';
 import 'package:flutter_engforit/Screens/lesson_detail/speaking_detail.dart';
 import 'package:flutter_engforit/Screens/lesson_detail/writing_detail.dart';
+import 'package:flutter_engforit/Screens/login/error.dart';
 import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/Screens/login/successfully_login.dart';
 import 'package:flutter_engforit/Screens/login/successfully_register.dart';
@@ -56,8 +57,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // ignore: missing_required_param
     return StreamProvider<Users>.value(
-       value: AuthService().user,
+      value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: const SafeArea(
@@ -110,6 +112,7 @@ class MyApp extends StatelessWidget {
           SpeakingUnit5.id: (context) => const SpeakingUnit5(),
           Settings.id: (context) => const Settings(),
           Profile.id: (context) => const Profile(),
+          Error.id:(context) => const Error(),
         },
       ),
     );

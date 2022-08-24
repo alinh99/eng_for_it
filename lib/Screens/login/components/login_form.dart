@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_engforit/Screens/home/home.dart';
 import 'package:flutter_engforit/Screens/login/error.dart';
 import 'package:flutter_engforit/Screens/login/successfully_login.dart';
 import 'package:flutter_engforit/components/input_container.dart';
@@ -66,7 +66,6 @@ class _LoginFormState extends State<LoginForm> {
       );
     }
 
-
     return AnimatedOpacity(
       opacity: widget.isLogin ? 1.0 : 0.0,
       duration: widget.animationDuration * 4,
@@ -124,6 +123,7 @@ class _LoginFormState extends State<LoginForm> {
                     try {
                       final user = await _auth.signIn(email, password);
                       if (user != null) {
+                        // ignore: use_build_context_synchronously
                         Navigator.pushNamed(context, SuccessfulLogin.id);
                       }
                     } catch (e) {
