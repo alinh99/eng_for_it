@@ -20,10 +20,10 @@ class DatabaseService {
     });
   }
 
-  Future updateUserInfo(String name, String password,
-      int age, String image, String email) async {
+  Future updateUserInfo(String name, String password, String age, String image,
+      String email) async {
     return await userCollection.doc(uid).set({
-      'name':name,
+      'name': name,
       'password': password,
       'email': email,
       'age': age,
@@ -41,14 +41,13 @@ class DatabaseService {
   }
 
   Users _userFromSnapshot(DocumentSnapshot snapshot) {
-    var docData = snapshot.data() as Map<String, dynamic>;
     return Users(
         uid: uid,
-        name: docData['name'],
-        age: docData['age'],
-        email: docData['email'],
-        password: docData['password'],
-        photoUrl: docData['photo_url']);
+        name: snapshot['name'],
+        age: snapshot['age'],
+        email: snapshot['email'],
+        password: snapshot['password'],
+        photoUrl: snapshot['photo_url']);
   }
 
   Stream<Users> get userData {
