@@ -9,7 +9,6 @@ import 'package:flutter_engforit/components/fixed_button.dart';
 import 'package:lottie/lottie.dart';
 
 class ReadingContents extends StatefulWidget {
-  static String id = 'reading_unit1';
   const ReadingContents({Key key, this.index, this.nextTapped})
       : super(key: key);
   final int index;
@@ -69,7 +68,7 @@ class _ReadingContentsState extends State<ReadingContents> {
       context: context,
       barrierDismissible:
           false, // disable dismiss function on clicking outside of box
-      builder: (ctx) => ResultBox(
+      builder: (ctx) => ReadingResultBox(
         result: score,
         questionLength: questionLength,
         resetPress: startOver,
@@ -84,7 +83,7 @@ class _ReadingContentsState extends State<ReadingContents> {
   void answerKey(int i) {
     showDialog(
       context: context,
-      builder: (ctx) => CheckAnswerBox(
+      builder: (ctx) => ReadingCheckAnswerBox(
         lessonList: lessons.toSet().toList(),
       ),
     );

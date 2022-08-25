@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_engforit/colors.dart';
 import 'package:flutter_engforit/constants.dart';
 
-class ReadingResultBox extends StatelessWidget {
-  const ReadingResultBox(
+class WritingResultBox extends StatelessWidget {
+  const WritingResultBox(
       {Key key,
       @required this.result,
       @required this.questionLength,
       @required this.resetPress,
-      @required this.checkAnswerPress,
+      this.checkAnswerPress,
       @required this.nextExercisePress})
       : super(key: key);
   final int result;
@@ -37,19 +37,19 @@ class ReadingResultBox extends StatelessWidget {
             const SizedBox(height: 20.0),
             CircleAvatar(
               radius: 70.0,
-              backgroundColor: result == questionLength / 2
+              backgroundColor: result == questionLength * 10 / 2
                   ? Colors.yellow
-                  : result < questionLength / 2
+                  : result < questionLength * 10 / 2
                       ? AppColors.darkRed
                       : kCorrectAnswerColor,
               child: Text(
-                "$result/$questionLength",
+                "$result/${questionLength * 10}",
                 style: const TextStyle(fontSize: 30.0),
               ),
             ),
             const SizedBox(height: 20.0),
             Text(
-              result == questionLength / 2
+              result == questionLength * 10 / 2
                   ? 'Almost There'
                   : result < questionLength / 2
                       ? 'Try Again ?'
@@ -86,7 +86,7 @@ class ReadingResultBox extends StatelessWidget {
             GestureDetector(
               onTap: nextExercisePress,
               child: const Text(
-                "Next Exercise",
+                "Next Unit",
                 style: TextStyle(
                   color: AppColors.red,
                   fontSize: 15.0,

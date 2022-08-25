@@ -4,8 +4,8 @@ import 'package:flutter_engforit/colors.dart';
 import 'package:flutter_engforit/constants.dart';
 
 
-class CheckAnswerBox extends StatelessWidget {
-  const CheckAnswerBox({Key key, @required this.lessonList}) : super(key: key);
+class ReadingCheckAnswerBox extends StatelessWidget {
+  const ReadingCheckAnswerBox({Key key, @required this.lessonList}) : super(key: key);
   final List<Reading> lessonList;
   @override
   Widget build(BuildContext context) {

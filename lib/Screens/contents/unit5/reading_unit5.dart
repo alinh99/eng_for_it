@@ -1,5 +1,6 @@
 import 'package:flutter_engforit/Screens/contents/components/reading_contents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engforit/Screens/contents/unit1/reading_unit1.dart';
 
 class ReadingUnit5 extends StatelessWidget {
   const ReadingUnit5({Key key}) : super(key: key);
@@ -8,7 +9,9 @@ class ReadingUnit5 extends StatelessWidget {
   Widget build(BuildContext context) {
     return ReadingContents(
       index: 5,
-      nextTapped: () {},
+      nextTapped: () {
+        Navigator.pushNamed(context, ReadingUnit1.id);
+      },
     );
   }
 }
