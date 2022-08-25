@@ -1,16 +1,23 @@
-import 'package:flutter_engforit/Screens/contents/components/reading_contents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engforit/Screens/contents/components/reading_contents.dart';
+import 'package:flutter_engforit/Screens/contents/unit2/reading_unit2.dart';
 
-class ReadingUnit1 extends StatelessWidget {
-  const ReadingUnit1({Key key}) : super(key: key);
+class ReadingUnit1 extends StatefulWidget {
   static String id = 'reading_unit1';
+  const ReadingUnit1({Key key}) : super(key: key);
+
+  @override
+  State<ReadingUnit1> createState() => _ReadingUnit1State();
+}
+
+class _ReadingUnit1State extends State<ReadingUnit1> {
   @override
   Widget build(BuildContext context) {
     return ReadingContents(
-      title:
-          'salkdhskdj lksdjlkasdj lksjdlkasjd slkdjklasjd sdlkjakldj aslkdjslkdjs mdalksjdlasda sdalskdjas daslkdn',
-      question:
-          'lskajdkslad lkasjdklsjd sldkjasdlkjas daslkdjasdl asd,msndklan nasdm sadsl saldaslk asndalksn klan dlkan d',
+      index: 1,
+      nextTapped: () {
+        Navigator.pushNamed(context, ReadingUnit2.id);
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter_engforit/Screens/login/login.dart';
+import 'package:flutter_engforit/Screens/login/successfully_login.dart';
 import 'package:flutter_engforit/Screens/profile/profile.dart';
 import 'package:flutter_engforit/Screens/settings/components/setting_icon_button.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_engforit/components/bottom_navigation_bar.dart';
 import 'package:flutter_engforit/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/user_models/users.dart';
+import 'package:flutter_engforit/user_services/auth.dart';
 import 'package:flutter_engforit/user_services/database.dart';
 import 'package:provider/provider.dart';
 
@@ -129,7 +132,11 @@ class _SettingsState extends State<Settings> {
                     const SizedBox(
                       height: 16,
                     ),
-                    const SettingIconButton(
+                    SettingIconButton(
+                      pressed: () async {
+                        AuthService().signOut();
+                        Navigator.pushNamed(context, SuccessfulLogin.id);
+                      },
                       iconButton: Icons.logout,
                       titleButton: 'Log out',
                       widthSize: 184,
@@ -153,7 +160,7 @@ class _SettingsState extends State<Settings> {
                       widthSize: 158,
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),

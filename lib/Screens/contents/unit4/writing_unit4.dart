@@ -7,8 +7,7 @@ class WritingUnit4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WritingContents(
-      title:
-          'salkdhskdj lksdjlkasdj lksjdlkasjd slkdjklasjd sdlkjakldj aslkdjslkdjs mdalksjdlasda sdalskdjas daslkdn',
+
     );
   }
 }

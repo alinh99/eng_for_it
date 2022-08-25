@@ -7,10 +7,8 @@ class ReadingUnit5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReadingContents(
-      title:
-          'salkdhskdj lksdjlkasdj lksjdlkasjd slkdjklasjd sdlkjakldj aslkdjslkdjs mdalksjdlasda sdalskdjas daslkdn',
-      question:
-          'lskajdkslad lkasjdklsjd sldkjasdlkjas daslkdjasdl asd,msndklan nasdm sadsl saldaslk asndalksn klan dlkan d',
+      index: 5,
+      nextTapped: () {},
     );
   }
 }

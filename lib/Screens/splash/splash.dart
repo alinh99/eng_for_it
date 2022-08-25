@@ -3,7 +3,6 @@ import 'package:flutter_engforit/components/lottie_animation.dart';
 import 'package:flutter_engforit/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter/material.dart';
 

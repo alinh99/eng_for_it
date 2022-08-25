@@ -25,7 +25,7 @@ class FixedButtonState extends State<FixedButton> {
           color: widget.buttonColor,
           boxShadow: const [
             BoxShadow(
-              color:  Color(0xFFEFF9FF),
+              color: Color(0xFFEFF9FF),
               blurRadius: 45,
               spreadRadius: 45,
             ),

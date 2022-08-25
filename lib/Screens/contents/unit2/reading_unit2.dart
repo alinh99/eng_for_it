@@ -1,5 +1,6 @@
 import 'package:flutter_engforit/Screens/contents/components/reading_contents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engforit/Screens/contents/unit3/reading_unit3.dart';
 
 class ReadingUnit2 extends StatelessWidget {
   const ReadingUnit2({Key key}) : super(key: key);
@@ -7,10 +8,10 @@ class ReadingUnit2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ReadingContents(
-      title:
-          'salkdhskdj lksdjlkasdj lksjdlkasjd slkdjklasjd sdlkjakldj aslkdjslkdjs mdalksjdlasda sdalskdjas daslkdn',
-      question:
-          'lskajdkslad lkasjdklsjd sldkjasdlkjas daslkdjasdl asd,msndklan nasdm sadsl saldaslk asndalksn klan dlkan d',
+      index: 2,
+      nextTapped: () {
+        Navigator.pushNamed(context, ReadingUnit3.id);
+      },
     );
   }
 }
