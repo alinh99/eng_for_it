@@ -155,7 +155,13 @@ class _ListeningContentsState extends State<ListeningContents> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: FixedButton(
-        tapped: () {},
+        tapped: () {
+          int i;
+          for (i = 0; i < listeningList.toSet().toList().length; i++) {
+            checkAnswer(i);
+          }
+          submit(i);
+        },
         buttonColor: const Color(0xffF5AE2C),
         buttonNamed: 'Submit',
       ),
@@ -272,6 +278,12 @@ class _ListeningContentsState extends State<ListeningContents> {
                                   ),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
+                                    userAnswerTypes
+                                        .add(TextEditingController());
+                                    realAnswerList.add(listeningList[index]
+                                        .answer
+                                        .keys
+                                        .toString());
                                     return Column(
                                       children: [
                                         Text(
@@ -296,10 +308,10 @@ class _ListeningContentsState extends State<ListeningContents> {
                                         const SizedBox(
                                           height: 16,
                                         ),
-                                        const TextField(
+                                        TextField(
                                           minLines: 1,
                                           maxLines: 5,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             contentPadding: EdgeInsets.all(8),
                                             hintText: 'Input your answer ...',
                                             suffixIcon: Padding(
@@ -307,7 +319,7 @@ class _ListeningContentsState extends State<ListeningContents> {
                                               child: Icon(Icons.text_fields),
                                             ),
                                           ),
-                                          //controller: userAnswerTypes[index],
+                                          controller: userAnswerTypes[index],
                                         ),
                                       ],
                                     );
