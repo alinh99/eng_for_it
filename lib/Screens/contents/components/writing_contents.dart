@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_engforit/Screens/contents/components/writitng/result_box.dart';
+import 'package:flutter_engforit/Screens/contents/components/writitng/writing_result_box.dart';
 import 'package:flutter_engforit/Screens/contents/models/lesson_db.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
 import 'package:flutter_engforit/components/app_bar.dart';

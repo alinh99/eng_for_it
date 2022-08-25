@@ -153,7 +153,9 @@ class _ReadingContentsState extends State<ReadingContents> {
                           child: ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
-                            physics: const AlwaysScrollableScrollPhysics(),
+                            physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics(),
+                            ),
                             itemCount: extractedData.length,
                             itemBuilder: ((context, index) {
                               userAnswerTypes.add(TextEditingController());
@@ -190,7 +192,7 @@ class _ReadingContentsState extends State<ReadingContents> {
                                       lessons[index].title,
                                       textAlign: TextAlign.justify,
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w600,
                                         fontSize: 16,
                                       ),
                                     ),
@@ -202,6 +204,7 @@ class _ReadingContentsState extends State<ReadingContents> {
                                       textAlign: TextAlign.justify,
                                       style: const TextStyle(
                                         fontSize: 16,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     TextField(

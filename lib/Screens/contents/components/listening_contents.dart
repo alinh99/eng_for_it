@@ -1,4 +1,11 @@
-import 'package:flutter_engforit/Screens/contents/components/question_answer_card.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_engforit/Screens/contents/components/listening/listening_check_answer_box.dart';
+import 'package:flutter_engforit/Screens/contents/components/listening/listening_result_box.dart';
+
+import 'package:flutter_engforit/Screens/contents/models/lesson_db.dart';
+import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
+import 'package:flutter_engforit/colors.dart';
+
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter_engforit/components/fixed_button.dart';
 import 'package:flutter_engforit/components/lottie_animation.dart';
@@ -25,8 +32,123 @@ class _ListeningContentsState extends State<ListeningContents> {
 
   @override
   void initState() {
+    // Listen to States: Playing, Pause, Stop
+    audioPlayer.onPlayerStateChanged.listen((event) {
+      setState(() {
+        isPlayed = event == PlayerState.PLAYING;
+      });
+    });
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      setState(() {
+        duration = newDuration;
+      });
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      setState(() {
+        position = newPosition;
+      });
+    });
+    _lessons = getData();
     compositionListening = _loadComposition('assets/images/listening.json');
     super.initState();
+  }
+
+  AudioPlayer audioPlayer = AudioPlayer();
+  List<TextEditingController> userAnswerTypes = [];
+  bool isPlayed = false;
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+  LessonDB db = LessonDB();
+  int score = 0;
+  bool isSummited = false;
+  List<Listening> listeningList = [];
+  List<String> userAnswerList = [];
+  List<String> realAnswerList = [];
+  Future _lessons;
+
+  Future<List<Object>> getData() async {
+    return db.fetchLessonDB(1, 'listening');
+  }
+
+  checkAnswer(int i) {
+    userAnswerList.insert(i, "(${userAnswerTypes[i].text})");
+    realAnswerList.add(listeningList[i].answer.keys.toString());
+    setState(() {
+      isSummited = true;
+      realAnswerList[i] = listeningList[i].answer.keys.toString();
+    });
+    if (userAnswerList.isEmpty) {
+      score += 0;
+      return false;
+    } else {
+      if (userAnswerList[i].toString().toLowerCase() ==
+          listeningList[i].answer.keys.toString()) {
+        score += 1;
+        return true;
+      } else {
+        score += 0;
+        return false;
+      }
+    }
+  }
+
+  void startOver() {
+    setState(() {
+      score = 0;
+      userAnswerTypes.clear();
+      isSummited = false;
+    });
+    Navigator.pop(context);
+  }
+
+  void submit(int questionLength) {
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // disable dismiss function on clicking outside of box
+      builder: (ctx) => ListeningResultBox(
+        result: score,
+        questionLength: questionLength,
+        resetPress: startOver,
+        checkAnswerPress: () {
+          answerKey(questionLength);
+        },
+        nextExercisePress: () {
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (BuildContext context) {
+          //       return const ListeningUnit2();
+          //     },
+          //   ),
+          // );
+        },
+      ),
+    );
+  }
+
+  void answerKey(int i) {
+    showDialog(
+      context: context,
+      builder: (ctx) => ListeningCheckAnswerBox(
+        lessonList: listeningList.toSet().toList(),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    for (TextEditingController userAnswerType in userAnswerTypes) {
+      userAnswerType.dispose();
+    }
+    super.dispose();
+  }
+
+  Future setAudio() async {
+    audioPlayer.setReleaseMode(ReleaseMode.LOOP);
+    final player = AudioCache(prefix: 'assets/database/');
+    final url = await player.load('unit1task3.mp3');
+    audioPlayer.play(url.path, isLocal: true);
   }
 
   @override
@@ -78,31 +200,40 @@ class _ListeningContentsState extends State<ListeningContents> {
                               children: [
                                 Container(
                                   margin: const EdgeInsets.only(left: 8),
-                                  child: const Text(
-                                    '06:25',
-                                    style: TextStyle(
+                                  child: Text(
+                                    formatTime(position),
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(20),
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (isPlayed) {
+                                      await audioPlayer.pause();
+                                    } else {
+                                      await setAudio();
+                                    }
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
+                                      color: Color(0xffF6C56A),
                                     ),
-                                    color: Color(0xffF6C56A),
-                                  ),
-                                  child: const Icon(
-                                    Icons.play_arrow,
-                                    color: Colors.white,
-                                    size: 40,
+                                    child: Icon(
+                                      isPlayed ? Icons.pause : Icons.play_arrow,
+                                      color: Colors.white,
+                                      size: 40,
+                                    ),
                                   ),
                                 ),
                                 Container(
                                   margin: const EdgeInsets.only(right: 8),
-                                  child: const Text(
-                                    '17:45',
-                                    style: TextStyle(
+                                  child: Text(
+                                    formatTime(duration),
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -113,11 +244,100 @@ class _ListeningContentsState extends State<ListeningContents> {
                         ],
                       ),
                     ),
-                    QuestionAndAnswerCard(
-                      question: widget.question,
-                      title: widget.title,
-                      answerLines: 5,
-                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          top: 16, bottom: 8, left: 16, right: 16),
+                      height: MediaQuery.of(context).size.height,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 16, left: 22, right: 24),
+                        child: FutureBuilder(
+                          future: _lessons as Future<List<Object>>,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              var extractedData = snapshot.data as List<Object>;
+                              for (var i in extractedData.toSet().toList()) {
+                                listeningList.add(i);
+                              }
+                              return ListView.builder(
+                                  itemCount: extractedData.length,
+                                  physics: const BouncingScrollPhysics(
+                                    parent: AlwaysScrollableScrollPhysics(),
+                                  ),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        Text(
+                                          listeningList[index].title,
+                                          textAlign: TextAlign.justify,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        Text(
+                                          listeningList[index].question,
+                                          textAlign: TextAlign.justify,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 16,
+                                        ),
+                                        const TextField(
+                                          minLines: 1,
+                                          maxLines: 5,
+                                          decoration: InputDecoration(
+                                            contentPadding: EdgeInsets.all(8),
+                                            hintText: 'Input your answer ...',
+                                            suffixIcon: Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Icon(Icons.text_fields),
+                                            ),
+                                          ),
+                                          //controller: userAnswerTypes[index],
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            } else {
+                              return SafeArea(
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: const [
+                                      CircularProgressIndicator(),
+                                      Text(
+                                        "Please Wait while Questions are loading..",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          decoration: TextDecoration.none,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ],
@@ -127,4 +347,12 @@ class _ListeningContentsState extends State<ListeningContents> {
       ),
     );
   }
+}
+
+String formatTime(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, '0');
+  final hours = twoDigits(duration.inHours);
+  final minutes = twoDigits(duration.inMinutes.remainder(60));
+  final seconds = twoDigits(duration.inSeconds.remainder(60));
+  return [if (duration.inHours > 0) hours, minutes, seconds].join(':');
 }
