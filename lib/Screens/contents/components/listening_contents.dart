@@ -1,11 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_engforit/Screens/contents/components/listening/listening_check_answer_box.dart';
 import 'package:flutter_engforit/Screens/contents/components/listening/listening_result_box.dart';
-
 import 'package:flutter_engforit/Screens/contents/models/lesson_db.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
-import 'package:flutter_engforit/colors.dart';
-
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter_engforit/components/fixed_button.dart';
 import 'package:flutter_engforit/components/lottie_animation.dart';
@@ -14,11 +11,15 @@ import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 
 class ListeningContents extends StatefulWidget {
-  const ListeningContents({Key key, this.question, this.title})
+  const ListeningContents(
+      {Key key, this.filePrefix, this.index, this.nextButton, this.fileSuffix})
       : super(key: key);
   static String id = 'listening_contents';
-  final String question;
-  final String title;
+  final int index;
+  final Function nextButton;
+  final String filePrefix;
+  final String fileSuffix;
+
   @override
   State<ListeningContents> createState() => _ListeningContentsState();
 }
@@ -68,7 +69,7 @@ class _ListeningContentsState extends State<ListeningContents> {
   Future _lessons;
 
   Future<List<Object>> getData() async {
-    return db.fetchLessonDB(1, 'listening');
+    return db.fetchLessonDB(widget.index, 'listening');
   }
 
   checkAnswer(int i) {
@@ -114,15 +115,7 @@ class _ListeningContentsState extends State<ListeningContents> {
         checkAnswerPress: () {
           answerKey(questionLength);
         },
-        nextExercisePress: () {
-          // Navigator.of(context).push(
-          //   MaterialPageRoute(
-          //     builder: (BuildContext context) {
-          //       return const ListeningUnit2();
-          //     },
-          //   ),
-          // );
-        },
+        nextExercisePress: widget.nextButton,
       ),
     );
   }
@@ -146,8 +139,8 @@ class _ListeningContentsState extends State<ListeningContents> {
 
   Future setAudio() async {
     audioPlayer.setReleaseMode(ReleaseMode.LOOP);
-    final player = AudioCache(prefix: 'assets/database/');
-    final url = await player.load('unit1task3.mp3');
+    final player = AudioCache(prefix: widget.filePrefix);
+    final url = await player.load(widget.fileSuffix);
     audioPlayer.play(url.path, isLocal: true);
   }
 
@@ -326,23 +319,25 @@ class _ListeningContentsState extends State<ListeningContents> {
                                   });
                             } else {
                               return SafeArea(
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      CircularProgressIndicator(),
-                                      Text(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: const [
+                                    Center(child: CircularProgressIndicator()),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Center(
+                                      child: Text(
                                         "Please Wait while Questions are loading..",
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           decoration: TextDecoration.none,
-                                          fontSize: 14.0,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               );
                             }

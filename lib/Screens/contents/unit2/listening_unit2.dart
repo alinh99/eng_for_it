@@ -1,5 +1,6 @@
 import 'package:flutter_engforit/Screens/contents/components/listening_contents.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engforit/Screens/contents/unit3/listening_unit3.dart';
 
 class ListeningUnit2 extends StatefulWidget {
   const ListeningUnit2({Key key}) : super(key: key);
@@ -12,11 +13,13 @@ class ListeningUnit2 extends StatefulWidget {
 class _ListeningUnit2State extends State<ListeningUnit2> {
   @override
   Widget build(BuildContext context) {
-    return const ListeningContents(
-      question:
-          'vjp pr0 No 1 Pr0 1 2 3 4 5 7 jf jnsksklfj dkfjsdklfj d,mfsdjfklsdjfs dfsdflksdjfslkdf lskfjlskf dfkdjfkds 1234',
-      title:
-          'lkdjklfsjd dfjkskdljflksdfd dl;fjsdl;fk dklfjskldjf dlkfjskldfj dskfjskldfjd sfkldsjfklsdfjsdf dsflkdsjflkdsf lkdsjfslkdjf',
+    return ListeningContents(
+      index: 2,
+      filePrefix: 'assets/database',
+      fileSuffix: 'unit1task3.mp3',
+      nextButton: () {
+        Navigator.pushNamed(context, ListeningUnit3.id);
+      },
     );
   }
 }

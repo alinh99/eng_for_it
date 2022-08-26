@@ -12,8 +12,6 @@ class SpeakingUnit5 extends StatefulWidget {
 class _SpeakingUnit5State extends State<SpeakingUnit5> {
   @override
   Widget build(BuildContext context) {
-    return SpeakingContents(
-      content: 'nice',
-    );
+    return SpeakingContents();
   }
 }

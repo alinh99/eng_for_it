@@ -230,25 +230,31 @@ class _ReadingContentsState extends State<ReadingContents> {
                     ),
                   );
                 } else {
-                  return SafeArea(
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                          Text(
-                            "Please Wait while Questions are loading..",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              decoration: TextDecoration.none,
-                              fontSize: 14.0,
-                            ),
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        SizedBox(
+                          height: 300,
+                        ),
+                        CircularProgressIndicator(),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          "Please Wait while Questions are loading..",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            decoration: TextDecoration.none,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16.0,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
+
                 }
               }),
         ),

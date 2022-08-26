@@ -13,7 +13,7 @@ class _SpeakingUnit3State extends State<SpeakingUnit3> {
   @override
   Widget build(BuildContext context) {
     return SpeakingContents(
-      content: 'nice',
+
     );
   }
 }
