@@ -7,8 +7,8 @@ import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:avatar_glow/avatar_glow.dart';
 
 class SpeakingContents extends StatefulWidget {
-  const SpeakingContents({Key key}) : super(key: key);
-
+  const SpeakingContents({Key key, this.index}) : super(key: key);
+  final int index;
   @override
   State<SpeakingContents> createState() => _SpeakingContentsState();
 }
@@ -23,7 +23,7 @@ class _SpeakingContentsState extends State<SpeakingContents> {
   List<String> userAnswerList = [];
   List<String> realAnswerList = [];
   Future _speaking;
-  int index = 0;
+
   int start = 0;
   int end = 0;
   stt.SpeechToText _speech = stt.SpeechToText();
@@ -34,7 +34,7 @@ class _SpeakingContentsState extends State<SpeakingContents> {
   String _text = 'Press the button and start speaking';
   //double _confidence = 0.0;
   Future<List<Object>> getData() async {
-    return db.fetchLessonDB(1, 'speaking');
+    return db.fetchLessonDB(widget.index, 'speaking');
   }
 
   _listen(String answer) async {
@@ -233,6 +233,18 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                                   ],
                                 ),
                                 const SizedBox(
+                                  height: 8,
+                                ),
+                                Center(
+                                    child: Text(
+                                  'Score: ${(score * 100).toStringAsFixed(1)}%',
+                                  style: const TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )),
+                                const SizedBox(
                                   height: 256,
                                 ),
                                 Center(
@@ -245,17 +257,28 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                                     repeatPauseDuration:
                                         const Duration(milliseconds: 100),
                                     repeat: true,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(16),
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(50),
+                                    child: FloatingActionButton(
+                                      onPressed: () {
+                                        _listen(speaking[index]
+                                            .answer
+                                            .keys
+                                            .join(''));
+                                        score = 0;
+                                        userAnswerList.clear();
+                                        realAnswerList.clear();
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(50),
+                                          ),
+                                          color: Color(0xFF7383C0),
                                         ),
-                                        color: Color(0xFF7383C0),
-                                      ),
-                                      child: const Icon(
-                                        Icons.keyboard_voice,
-                                        color: Colors.white,
+                                        child: const Icon(
+                                          Icons.keyboard_voice,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -273,9 +296,6 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: const [
-                        SizedBox(
-                          height: 300,
-                        ),
                         CircularProgressIndicator(),
                         SizedBox(
                           height: 8,

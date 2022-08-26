@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
-import 'package:flutter_engforit/Screens/home/home.dart';
 import 'package:flutter_engforit/Screens/login/error.dart';
 import 'package:flutter_engforit/Screens/login/successfully_login.dart';
 import 'package:flutter_engforit/components/input_container.dart';
@@ -30,7 +28,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   String email;
   String password;
-  AuthService _auth = AuthService();
+  final AuthService _auth = AuthService();
   Future<LottieComposition> composition;
   @override
   void initState() {

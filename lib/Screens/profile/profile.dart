@@ -109,6 +109,7 @@ class _ProfileState extends State<Profile> {
                               url ?? userData.photoUrl,
                               email ?? userData.email,
                             );
+                            // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           },
                           child: const Text(

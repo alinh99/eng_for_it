@@ -185,10 +185,14 @@ class _RegisterFormState extends State<RegisterForm> {
                           'photo_url': url,
                         });
                         if (url.isEmpty || name.isEmpty || age.isEmpty) {
+                          // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
                         } else if (password.length < 6) {
+                          // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
+                        // ignore: unrelated_type_equality_checks
                         } else if (email != emailFormat) {
+                          // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
                         }
                         //Navigator.pushNamed(context, SuccessfulRegister.id);
