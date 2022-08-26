@@ -6,7 +6,6 @@ import 'package:flutter_engforit/components/bottom_navigation_bar.dart';
 import 'package:flutter_engforit/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/user_models/users.dart';
-import 'package:flutter_engforit/user_services/auth.dart';
 import 'package:flutter_engforit/user_services/database.dart';
 import 'package:provider/provider.dart';
 

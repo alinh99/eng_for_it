@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_engforit/Screens/contents/unit1/listening_unit1.dart';
 import 'package:flutter_engforit/Screens/contents/unit1/reading_unit1.dart';
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth auth = FirebaseAuth.instance;
+    // ignore: missing_required_param
     return StreamProvider<Users>.value(
       value: AuthService().user,
       child: MaterialApp(
