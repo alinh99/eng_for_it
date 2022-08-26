@@ -1,4 +1,4 @@
-import 'package:flutter_engforit/Screens/home/home.dart';
+import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/components/lottie_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,7 +50,7 @@ class _SuccessfulRegisterState extends State<SuccessfulRegister> {
               ),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, Home.id);
+                  Navigator.pushNamed(context, Login.id);
                 },
                 child: const Text(
                   'Proceed',

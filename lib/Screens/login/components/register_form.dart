@@ -66,6 +66,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ],
         ),
       );
+
       showDialog(
         barrierDismissible: false,
         context: context,
@@ -73,7 +74,6 @@ class _RegisterFormState extends State<RegisterForm> {
           return alert;
         },
       );
-      Navigator.pop(context);
     }
 
     return AnimatedOpacity(
@@ -162,16 +162,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   GestureDetector(
                     onTap: () async {
-                      setState(() {
-                        showLoaderDialog(context);
-                      });
                       try {
-                        final newUser = _auth.signUp(email, password);
-                        if (newUser != null) {
-                          Navigator.pushNamed(context, SuccessfulRegister.id);
-                        } else {
-                          Navigator.pushNamed(context, Error.id);
-                        }
+                        showLoaderDialog(context);
+                        Future.delayed(const Duration(seconds: 1));
                         final url =
                             await _storage.uploadUserImage(File(image.path));
                         final userInfo = await FirebaseFirestore.instance
@@ -184,18 +177,24 @@ class _RegisterFormState extends State<RegisterForm> {
                           'password': password,
                           'photo_url': url,
                         });
-                        if (url.isEmpty || name.isEmpty || age.isEmpty) {
+                        if (url.isEmpty &&
+                            name.isEmpty &&
+                            age.isEmpty &&
+                            email.isEmpty &&
+                            password.isEmpty) {
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
-                        } else if (password.length < 6) {
+                        } else {
+                          _auth.signUp(email, password);
                           // ignore: use_build_context_synchronously
-                          Navigator.pushNamed(context, Error.id);
+                          Navigator.pushNamed(context, SuccessfulRegister.id);
+                        }
                         // ignore: unrelated_type_equality_checks
-                        } else if (email != emailFormat) {
+                        if (password.length < 6 && email != emailFormat) {
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
                         }
-                        //Navigator.pushNamed(context, SuccessfulRegister.id);
+
                         return userInfo;
                       } catch (e) {
                         Navigator.pushNamed(context, Error.id);

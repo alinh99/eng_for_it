@@ -1,4 +1,4 @@
-import 'package:flutter_engforit/Screens/login/successfully_login.dart';
+import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/Screens/profile/profile.dart';
 import 'package:flutter_engforit/Screens/settings/components/setting_icon_button.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
@@ -18,6 +18,28 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Loading..."),
+          ),
+        ],
+      ),
+    );
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<Users>(context);
@@ -133,8 +155,10 @@ class _SettingsState extends State<Settings> {
                     ),
                     SettingIconButton(
                       pressed: () async {
-                        AuthService().signOut();
-                        Navigator.pushNamed(context, SuccessfulLogin.id);
+                        showLoaderDialog(context);
+                        Future.delayed(const Duration(seconds: 1));
+                        //AuthService().signOut();
+                        Navigator.pushNamed(context, Login.id);
                       },
                       iconButton: Icons.logout,
                       titleButton: 'Log out',
