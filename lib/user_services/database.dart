@@ -13,7 +13,7 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('users');
 
   // add user data
-  Future addUser(email, password) async {
+  Future addUser(String password, String email) async {
     return await userCollection.doc(uid).set({
       'email': email,
       'password': password,

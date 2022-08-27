@@ -123,9 +123,6 @@ class _LoginFormState extends State<LoginForm> {
                       if (user != null) {
                         // ignore: use_build_context_synchronously
                         Navigator.pushNamed(context, SuccessfulLogin.id);
-                      } else {
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushNamed(context, Error.id);
                       }
                     } catch (e) {
                       Navigator.pushNamed(context, Error.id);

@@ -37,7 +37,7 @@ class AuthService {
           email: email, password: password);
       User user = result.user;
       await DatabaseService(uid: user.uid)
-          .addUser(email, password);
+          .addUser(password, email);
       return _userFromFirebaseUser(user);
     } catch (e) {
       return null;

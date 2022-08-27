@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/Screens/profile/profile.dart';
 import 'package:flutter_engforit/Screens/settings/components/setting_icon_button.dart';
@@ -17,6 +18,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(
@@ -153,10 +155,11 @@ class _SettingsState extends State<Settings> {
                       height: 16,
                     ),
                     SettingIconButton(
-                      pressed: () async {
+                      pressed: () {
                         showLoaderDialog(context);
                         Future.delayed(const Duration(seconds: 1));
                         //AuthService().signOut();
+                        // auth.signOut();
                         Navigator.pushNamed(context, Login.id);
                       },
                       iconButton: Icons.logout,

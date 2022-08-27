@@ -1,10 +1,12 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously, duplicate_ignore
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_engforit/Screens/login/error.dart';
-import 'package:flutter_engforit/Screens/login/successfully_register.dart';
+import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/components/input_container.dart';
 import 'package:flutter_engforit/components/lottie_animation.dart';
 import 'package:flutter_engforit/components/rounded_button.dart';
@@ -163,8 +165,12 @@ class _RegisterFormState extends State<RegisterForm> {
                   GestureDetector(
                     onTap: () async {
                       try {
-                        showLoaderDialog(context);
-                        Future.delayed(const Duration(seconds: 1));
+                        // showLoaderDialog(context);
+                        // Future.delayed(const Duration(seconds: 1));
+                        final newUser = _auth.signUp(email, password);
+                        if (newUser != null) {
+                          Navigator.pushNamed(context, Login.id);
+                        }
                         final url =
                             await _storage.uploadUserImage(File(image.path));
                         final userInfo = await FirebaseFirestore.instance
@@ -177,20 +183,15 @@ class _RegisterFormState extends State<RegisterForm> {
                           'password': password,
                           'photo_url': url,
                         });
+
                         if (url.isEmpty &&
                             name.isEmpty &&
                             age.isEmpty &&
                             email.isEmpty &&
-                            password.isEmpty) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushNamed(context, Error.id);
-                        } else {
-                          _auth.signUp(email, password);
-                          // ignore: use_build_context_synchronously
-                          Navigator.pushNamed(context, SuccessfulRegister.id);
-                        }
-                        // ignore: unrelated_type_equality_checks
-                        if (password.length < 6 && email != emailFormat) {
+                            password.isEmpty &&
+                            password.length < 6 &&
+                            // ignore: unrelated_type_equality_checks
+                            email != emailFormat) {
                           // ignore: use_build_context_synchronously
                           Navigator.pushNamed(context, Error.id);
                         }
@@ -198,6 +199,8 @@ class _RegisterFormState extends State<RegisterForm> {
                         return userInfo;
                       } catch (e) {
                         Navigator.pushNamed(context, Error.id);
+                        // ignore: avoid_print
+                        print(e.toString());
                       }
                     },
                     child: const RoundedButton(title: 'SIGN UP'),
