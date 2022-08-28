@@ -15,7 +15,7 @@ class _ListeningUnit1State extends State<ListeningUnit1> {
   Widget build(BuildContext context) {
     return ListeningContents(
       index: 1,
-      filePrefix: 'assets/database',
+      filePrefix: 'assets/database/',
       fileSuffix: 'unit1task3.mp3',
       nextButton: () {
         Navigator.pushNamed(context, ListeningUnit2.id);

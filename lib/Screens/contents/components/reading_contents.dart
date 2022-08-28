@@ -44,7 +44,7 @@ class _ReadingContentsState extends State<ReadingContents> {
       return false;
     } else {
       if (userAnswerList[i].toString().toLowerCase() ==
-          lessons[i].answer.keys.toString()) {
+          lessons[i].answer.keys.toString().toLowerCase()) {
         score += 1;
         return true;
       } else {
@@ -66,8 +66,8 @@ class _ReadingContentsState extends State<ReadingContents> {
   void submit(int questionLength) {
     showDialog(
       context: context,
-      barrierDismissible:
-          false, // disable dismiss function on clicking outside of box
+      // barrierDismissible:
+      //     false, // disable dismiss function on clicking outside of box
       builder: (ctx) => ReadingResultBox(
         result: score,
         questionLength: questionLength,
@@ -118,6 +118,7 @@ class _ReadingContentsState extends State<ReadingContents> {
         buttonNamed: 'Submit',
         buttonColor: const Color(0xff54C3FF),
         tapped: () {
+          print(lessons.toSet().toList().length);
           int i;
           for (i = 0; i < lessons.toSet().toList().length; i++) {
             checkAnswer(i);
@@ -254,7 +255,6 @@ class _ReadingContentsState extends State<ReadingContents> {
                       ],
                     ),
                   );
-
                 }
               }),
         ),

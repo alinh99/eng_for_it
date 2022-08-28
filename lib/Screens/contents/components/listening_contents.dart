@@ -84,7 +84,7 @@ class _ListeningContentsState extends State<ListeningContents> {
       return false;
     } else {
       if (userAnswerList[i].toString().toLowerCase() ==
-          listeningList[i].answer.keys.toString()) {
+          listeningList[i].answer.keys.toString().toLowerCase()) {
         score += 1;
         return true;
       } else {

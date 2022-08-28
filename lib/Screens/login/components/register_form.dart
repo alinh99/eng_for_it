@@ -56,28 +56,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    showLoaderDialog(BuildContext context) {
-      AlertDialog alert = AlertDialog(
-        content: Row(
-          children: [
-            const CircularProgressIndicator(),
-            Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading..."),
-            ),
-          ],
-        ),
-      );
-
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return alert;
-        },
-      );
-    }
-
     return AnimatedOpacity(
       opacity: widget.isLogin ? 0.0 : 1.0,
       duration: widget.animationDuration * 5,
