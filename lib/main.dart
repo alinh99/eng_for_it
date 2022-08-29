@@ -38,6 +38,7 @@ import 'package:flutter_engforit/Screens/login/login.dart';
 import 'package:flutter_engforit/Screens/login/successfully_login.dart';
 import 'package:flutter_engforit/Screens/login/successfully_register.dart';
 import 'package:flutter_engforit/Screens/profile/profile.dart';
+import 'package:flutter_engforit/Screens/game/game.dart';
 import 'package:flutter_engforit/Screens/quiz/quiz.dart';
 import 'package:flutter_engforit/Screens/settings/settings.dart';
 import 'package:flutter_engforit/Screens/splash/splash.dart';
@@ -115,6 +116,7 @@ class MyApp extends StatelessWidget {
           Settings.id: (context) => const Settings(),
           Profile.id: (context) => const Profile(),
           Error.id: (context) => const Error(),
+          GameScreen.id: (context) => const GameScreen(),
           QuizScreen.id: (context) => const QuizScreen(),
         },
       ),
