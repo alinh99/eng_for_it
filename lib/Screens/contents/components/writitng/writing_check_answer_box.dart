@@ -5,7 +5,8 @@ import 'package:highlight_text/highlight_text.dart';
 import 'package:language_tool/language_tool.dart';
 
 class WritingCheckAnswerBox extends StatefulWidget {
-  const WritingCheckAnswerBox({Key key, @required this.wordList}) : super(key: key);
+  const WritingCheckAnswerBox({Key key, @required this.wordList})
+      : super(key: key);
   final List<String> wordList;
   @override
   State<WritingCheckAnswerBox> createState() => _WritingCheckAnswerBoxState();
@@ -67,14 +68,14 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
     }
 
     return AlertDialog(
-      backgroundColor: AppColors.darkPink,
+      backgroundColor: const Color(0xFF5AE2E2),
       title: const Text(
         "ANSWER KEY",
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: AppColors.lightPink,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w900,
+          color: Colors.black,
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
         ),
       ),
       content: SizedBox(
@@ -98,7 +99,7 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                         textStyle: const TextStyle(
                             color: AppColors.darkRed,
                             fontFamily: 'Nunito',
-                            fontSize: 17),
+                            fontSize: 16),
                       ),
                     };
                     if (snapshot.connectionState == ConnectionState.done ||
@@ -116,7 +117,7 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                                       words: words, // Your dictionary words
                                       textStyle: const TextStyle(
                                           color: kCorrectAnswerColor,
-                                          fontSize: 17,
+                                          fontSize: 16,
                                           fontFamily: 'Nunito'),
                                       // You can use any attribute of the RichText widget
                                     ),

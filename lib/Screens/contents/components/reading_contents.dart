@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_engforit/Screens/contents/components/reading/reading_check_answer_box.dart';
 import 'package:flutter_engforit/Screens/contents/components/reading/reading_result_box.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_engforit/Screens/contents/models/lesson_db.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter_engforit/components/fixed_button.dart';
-import 'package:lottie/lottie.dart';
 
 class ReadingContents extends StatefulWidget {
   const ReadingContents({Key key, this.index, this.nextTapped})
@@ -44,7 +42,7 @@ class _ReadingContentsState extends State<ReadingContents> {
       return false;
     } else {
       if (userAnswerList[i].toString().toLowerCase() ==
-          lessons[i].answer.keys.toString().toLowerCase()) {
+          lessons[i].answer.keys.toString()) {
         score += 1;
         return true;
       } else {
@@ -66,8 +64,8 @@ class _ReadingContentsState extends State<ReadingContents> {
   void submit(int questionLength) {
     showDialog(
       context: context,
-      // barrierDismissible:
-      //     false, // disable dismiss function on clicking outside of box
+      barrierDismissible:
+          false, // disable dismiss function on clicking outside of box
       builder: (ctx) => ReadingResultBox(
         result: score,
         questionLength: questionLength,
@@ -93,14 +91,8 @@ class _ReadingContentsState extends State<ReadingContents> {
   void initState() {
     // Listen to States: Playing, Pause, Stop
     _lessons = getData();
-    compositionReading = _loadComposition('assets/images/reading.json');
-    super.initState();
-  }
 
-  Future<LottieComposition> compositionReading;
-  Future<LottieComposition> _loadComposition(String path) async {
-    var assetData = await rootBundle.load(path);
-    return await LottieComposition.fromByteData(assetData);
+    super.initState();
   }
 
   @override
@@ -118,7 +110,6 @@ class _ReadingContentsState extends State<ReadingContents> {
         buttonNamed: 'Submit',
         buttonColor: const Color(0xff54C3FF),
         tapped: () {
-          print(lessons.toSet().toList().length);
           int i;
           for (i = 0; i < lessons.toSet().toList().length; i++) {
             checkAnswer(i);
@@ -152,12 +143,11 @@ class _ReadingContentsState extends State<ReadingContents> {
                             color: Colors.white,
                           ),
                           child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
+                            itemCount: extractedData.length,
                             physics: const BouncingScrollPhysics(
                               parent: AlwaysScrollableScrollPhysics(),
                             ),
-                            itemCount: extractedData.length,
+                            shrinkWrap: true,
                             itemBuilder: ((context, index) {
                               userAnswerTypes.add(TextEditingController());
                               realAnswerList
@@ -201,7 +191,7 @@ class _ReadingContentsState extends State<ReadingContents> {
                                       height: 2,
                                     ),
                                     Text(
-                                      lessons[index].question,
+                                      "${index + 1}. ${lessons[index].question}",
                                       textAlign: TextAlign.justify,
                                       style: const TextStyle(
                                         fontSize: 16,

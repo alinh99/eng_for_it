@@ -19,7 +19,7 @@ class WritingResultBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: AppColors.darkPink,
+      backgroundColor: const Color(0xFF5AE2E2),
       content: Padding(
         padding: const EdgeInsets.all(70.0),
         child: Column(
@@ -29,9 +29,9 @@ class WritingResultBox extends StatelessWidget {
             const Text(
               "RESULT",
               style: TextStyle(
-                color: AppColors.lightPink,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w900,
+                color: Colors.black,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 20.0),
@@ -44,7 +44,7 @@ class WritingResultBox extends StatelessWidget {
                       : kCorrectAnswerColor,
               child: Text(
                 "$result/${questionLength * 10}",
-                style: const TextStyle(fontSize: 30.0),
+                style: const TextStyle(fontSize: 24.0),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -64,9 +64,9 @@ class WritingResultBox extends StatelessWidget {
               child: const Text(
                 "Check Answer",
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -76,9 +76,9 @@ class WritingResultBox extends StatelessWidget {
               child: const Text(
                 "Start Over",
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -88,9 +88,9 @@ class WritingResultBox extends StatelessWidget {
               child: const Text(
                 "Next Unit",
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

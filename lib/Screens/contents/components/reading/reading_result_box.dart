@@ -7,7 +7,7 @@ class ReadingResultBox extends StatelessWidget {
       {Key key,
       @required this.result,
       @required this.questionLength,
-      @required this.resetPress,
+      this.resetPress,
       @required this.checkAnswerPress,
       @required this.nextExercisePress})
       : super(key: key);
@@ -19,7 +19,7 @@ class ReadingResultBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: AppColors.darkPink,
+      backgroundColor: const Color(0xff54C3FF),
       content: Padding(
         padding: const EdgeInsets.all(70.0),
         child: Column(
@@ -29,9 +29,9 @@ class ReadingResultBox extends StatelessWidget {
             const Text(
               "RESULT",
               style: TextStyle(
-                color: AppColors.lightPink,
-                fontSize: 20.0,
-                fontWeight: FontWeight.w900,
+                color: Colors.black,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 20.0),
@@ -44,7 +44,7 @@ class ReadingResultBox extends StatelessWidget {
                       : kCorrectAnswerColor,
               child: Text(
                 "$result/$questionLength",
-                style: const TextStyle(fontSize: 30.0),
+                style: const TextStyle(fontSize: 24.0),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -63,10 +63,11 @@ class ReadingResultBox extends StatelessWidget {
               onTap: checkAnswerPress,
               child: const Text(
                 "Check Answer",
+                textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -75,10 +76,11 @@ class ReadingResultBox extends StatelessWidget {
               onTap: resetPress,
               child: const Text(
                 "Start Over",
+                textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
@@ -87,10 +89,11 @@ class ReadingResultBox extends StatelessWidget {
               onTap: nextExercisePress,
               child: const Text(
                 "Next Exercise",
+                textAlign: TextAlign.justify,
                 style: TextStyle(
-                  color: AppColors.red,
-                  fontSize: 15.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

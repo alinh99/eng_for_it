@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
-import 'package:flutter_engforit/colors.dart';
 import 'package:flutter_engforit/constants.dart';
 
-
 class ReadingCheckAnswerBox extends StatelessWidget {
-  const ReadingCheckAnswerBox({Key key, @required this.lessonList}) : super(key: key);
+  const ReadingCheckAnswerBox({Key key, @required this.lessonList})
+      : super(key: key);
   final List<Reading> lessonList;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: const Color(0xff54C3FF),
       title: const Text(
         "ANSWER KEY",
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: AppColors.lightPink,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w900,
+          color: Colors.black,
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
         ),
       ),
       content: SizedBox(

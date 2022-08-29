@@ -139,7 +139,7 @@ class _WritingContentsState extends State<WritingContents> {
     return Scaffold(
       bottomNavigationBar: FixedButton(
         buttonNamed: 'Submit',
-        buttonColor: const Color(0xff54C3FF),
+        buttonColor: const Color(0xFF5AE2E2),
         tapped: () async {
           await checkAnswer(userAnswerList, userAnswerTypes.text);
           submit(lessons.length);
