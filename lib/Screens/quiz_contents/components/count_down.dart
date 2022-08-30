@@ -19,9 +19,7 @@ class Countdown extends AnimatedWidget {
     return Text(
       timerText,
       style: const TextStyle(
-        fontWeight: FontWeight.w600,
         color: Colors.white,
-        fontSize: 32,
       ),
     );
   }

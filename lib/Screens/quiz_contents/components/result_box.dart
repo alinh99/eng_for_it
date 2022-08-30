@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/constants.dart';
 
-
 class ResultBox extends StatelessWidget {
   const ResultBox(
       {Key key,
       @required this.result,
       @required this.questionLength,
-      @required this.press})
+      @required this.press,
+      @required this.backgroundColor})
       : super(key: key);
   final int result;
+  final Color backgroundColor;
   final int questionLength;
   final VoidCallback press;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: backgroundColor,
       content: Padding(
         padding: const EdgeInsets.all(70.0),
         child: Column(
@@ -23,10 +24,11 @@ class ResultBox extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Result",
+              "RESULT",
               style: TextStyle(
-                color: kNeutralAnswerColor,
-                fontSize: 20.0,
+                color: Colors.grey,
+                fontSize: 16.0,
+                fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(height: 20.0),
@@ -39,7 +41,10 @@ class ResultBox extends StatelessWidget {
                       : kCorrectAnswerColor,
               child: Text(
                 "$result/$questionLength",
-                style: const TextStyle(fontSize: 30.0),
+                style: const TextStyle(
+                  fontSize: 24.0,
+                  color: Colors.white,
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -50,18 +55,18 @@ class ResultBox extends StatelessWidget {
                       ? 'Try Again ?'
                       : 'Great!',
               style: const TextStyle(
-                color: kNeutralAnswerColor,
+                color: Colors.grey,
               ),
             ),
             const SizedBox(height: 25.0),
             GestureDetector(
               onTap: press,
-              child: Text(
+              child: const Text(
                 "Start Over",
                 style: TextStyle(
-                  color: Colors.red[900],
-                  fontSize: 20.0,
-                  letterSpacing: 1.0,
+                  color: Colors.white,
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             )

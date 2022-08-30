@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engforit/colors.dart';
-import 'package:flutter_engforit/constants.dart';
-
 
 class NextButton extends StatelessWidget {
-  const NextButton({Key key}) : super(key: key);
+  const NextButton({
+    Key key,
+    this.color
+  }) : super(key: key);
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: AppColors.lightPink,
-        borderRadius: BorderRadius.circular(10.0),
+      padding: const EdgeInsets.only(top: 24, bottom: 24),
+      decoration:  BoxDecoration(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+        color: color,
       ),
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: const Text(
-        'Next Question',
+        'Next',
         textAlign: TextAlign.center,
         style: TextStyle(
-          color: kGetStartedButtonColor,
-          fontSize: 18.0,
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
