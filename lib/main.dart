@@ -40,7 +40,11 @@ import 'package:flutter_engforit/Screens/login/successfully_register.dart';
 import 'package:flutter_engforit/Screens/profile/profile.dart';
 import 'package:flutter_engforit/Screens/game/game.dart';
 import 'package:flutter_engforit/Screens/quiz/quiz.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_15_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_30_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_45_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_5_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_60_minutes.dart';
 import 'package:flutter_engforit/Screens/settings/settings.dart';
 import 'package:flutter_engforit/Screens/splash/splash.dart';
 import 'package:flutter/material.dart';
@@ -120,6 +124,10 @@ class MyApp extends StatelessWidget {
           GameScreen.id: (context) => const GameScreen(),
           QuizScreen.id: (context) => const QuizScreen(),
           Quiz5Minutes.id: (context) => const Quiz5Minutes(),
+          Quiz15Minutes.id: (context) => const Quiz15Minutes(),
+          Quiz30Minutes.id: (context) => const Quiz30Minutes(),
+          Quiz45Minutes.id: (context) => const Quiz45Minutes(),
+          Quiz60Minutes.id: (context) => const Quiz60Minutes()
         },
       ),
     );

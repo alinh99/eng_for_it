@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_engforit/Screens/courses/components/course_card.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_15_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_30_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_45_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_5_minutes.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_60_minutes.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:lottie/lottie.dart';
 
@@ -63,7 +67,9 @@ class _QuizScreenState extends State<QuizScreen> {
               cardColor: const Color(0xFF4DAFEE),
               title: '15 Minutes',
               description: '',
-              tapped: () {},
+              tapped: () {
+                Navigator.pushNamed(context, Quiz15Minutes.id);
+              },
             ),
             CourseCard(
               bottomMargin: 16,
@@ -72,7 +78,9 @@ class _QuizScreenState extends State<QuizScreen> {
               cardColor: const Color(0xffF24D18),
               title: '30 Minutes',
               description: '',
-              tapped: () {},
+              tapped: () {
+                Navigator.pushNamed(context, Quiz30Minutes.id);
+              },
             ),
             CourseCard(
               bottomMargin: 16,
@@ -81,7 +89,9 @@ class _QuizScreenState extends State<QuizScreen> {
               cardColor: const Color(0xffA272FF),
               title: '45 Minutes',
               description: '',
-              tapped: () {},
+              tapped: () {
+                Navigator.pushNamed(context, Quiz45Minutes.id);
+              },
             ),
             CourseCard(
               bottomMargin: 16,
@@ -90,7 +100,9 @@ class _QuizScreenState extends State<QuizScreen> {
               cardColor: const Color(0xffF24242),
               title: '60 Minutes',
               description: '',
-              tapped: () {},
+              tapped: () {
+                Navigator.pushNamed(context, Quiz60Minutes.id);
+              },
             ),
           ],
         ),

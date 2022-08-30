@@ -29,8 +29,6 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
   AnimationController _controller;
   int levelClock = 300;
   Future<LottieComposition> compositionTime;
-  Future<LottieComposition> compositionCongrats;
-  Future<LottieComposition> compositionFailed;
   Future<List<Quiz>> getData() async {
     return db.fetchQuestion();
   }
@@ -43,8 +41,6 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
   @override
   void initState() {
     compositionTime = _loadComposition('assets/images/count_down.json');
-    compositionCongrats = _loadComposition('assets/images/congratulation.json');
-    compositionFailed = _loadComposition('assets/images/failed.json');
     _questions = getData();
     _controller = AnimationController(
         vsync: this,
@@ -138,14 +134,8 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
       );
       if (value) {
         score++;
-        // return LottieAnimation(
-        //     composition: compositionCongrats,
-        //     height: MediaQuery.of(context).size.height);
       } else {
         score += 0;
-        // return LottieAnimation(
-        //     composition: compositionFailed,
-        //     height: MediaQuery.of(context).size.height);
       }
     }
   }
@@ -242,7 +232,7 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
             );
           } else {
             Future.delayed(
-              const Duration(seconds: 3),
+              const Duration(seconds: 10),
             );
             return Scaffold(
               backgroundColor: const Color(0xFFEFF9FF),
