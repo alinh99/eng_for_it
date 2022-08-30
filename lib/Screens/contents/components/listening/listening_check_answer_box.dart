@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
-import 'package:flutter_engforit/colors.dart';
 
 class ListeningCheckAnswerBox extends StatelessWidget {
   const ListeningCheckAnswerBox({Key key, @required this.lessonList})

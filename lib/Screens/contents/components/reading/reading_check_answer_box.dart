@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
-import 'package:flutter_engforit/constants.dart';
 
 class ReadingCheckAnswerBox extends StatelessWidget {
   const ReadingCheckAnswerBox({Key key, @required this.lessonList})

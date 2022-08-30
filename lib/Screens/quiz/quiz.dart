@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_engforit/Screens/courses/components/course_card.dart';
+import 'package:flutter_engforit/Screens/quiz_contents/quiz_5_minutes.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:lottie/lottie.dart';
 
@@ -51,7 +52,9 @@ class _QuizScreenState extends State<QuizScreen> {
               cardColor: const Color(0xff141D60),
               title: '5 Minutes',
               description: '',
-              tapped: () {},
+              tapped: () {
+                Navigator.pushNamed(context, Quiz5Minutes.id);
+              },
             ),
             CourseCard(
               bottomMargin: 16,

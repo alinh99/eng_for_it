@@ -40,7 +40,9 @@ class _SpeakingContentsState extends State<SpeakingContents> {
   _listen(String answer) async {
     if (!_isListening) {
       bool available = await _speech.initialize(
+        // ignore: avoid_print
         onStatus: (val) => print('onStatus: $val'),
+        // ignore: avoid_print
         onError: (val) => print('onError: $val'),
       );
 
