@@ -91,7 +91,6 @@ class _ReadingContentsState extends State<ReadingContents> {
   void initState() {
     // Listen to States: Playing, Pause, Stop
     _lessons = getData();
-
     super.initState();
   }
 

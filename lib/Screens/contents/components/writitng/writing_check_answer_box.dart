@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engforit/colors.dart';
 import 'package:flutter_engforit/constants.dart';
 import 'package:highlight_text/highlight_text.dart';
 import 'package:language_tool/language_tool.dart';
@@ -97,7 +96,7 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                     Map<String, HighlightedWord> words = {
                       getWrongWords(sentence): HighlightedWord(
                         textStyle: const TextStyle(
-                            color: AppColors.darkRed,
+                            color: Colors.red,
                             fontFamily: 'Nunito',
                             fontSize: 16),
                       ),
@@ -126,7 +125,7 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                                     child: Text(
                                       'Your Answer Must Be At Least 5 Words',
                                       style:
-                                          TextStyle(color: AppColors.darkRed),
+                                          TextStyle(color: Colors.red),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engforit/colors.dart';
 import 'package:flutter_engforit/constants.dart';
 
 class WritingResultBox extends StatelessWidget {
@@ -29,7 +28,7 @@ class WritingResultBox extends StatelessWidget {
             const Text(
               "RESULT",
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.grey,
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
               ),
@@ -40,11 +39,14 @@ class WritingResultBox extends StatelessWidget {
               backgroundColor: result == questionLength * 10 / 2
                   ? Colors.yellow
                   : result < questionLength * 10 / 2
-                      ? AppColors.darkRed
-                      : kCorrectAnswerColor,
+                      ? Colors.red
+                      : Colors.green,
               child: Text(
                 "$result/${questionLength * 10}",
-                style: const TextStyle(fontSize: 24.0),
+                style: const TextStyle(
+                  fontSize: 24.0,
+                  color: Colors.white
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -55,7 +57,7 @@ class WritingResultBox extends StatelessWidget {
                       ? 'Try Again ?'
                       : 'Great!',
               style: const TextStyle(
-                color: kNeutralAnswerColor,
+                color: Colors.grey,
               ),
             ),
             const SizedBox(height: 25.0),

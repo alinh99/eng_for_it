@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_engforit/colors.dart';
-import 'package:flutter_engforit/constants.dart';
 
 class ReadingResultBox extends StatelessWidget {
   const ReadingResultBox(
       {Key key,
       @required this.result,
       @required this.questionLength,
-      this.resetPress,
+      @required this.resetPress,
       @required this.checkAnswerPress,
       @required this.nextExercisePress})
       : super(key: key);
@@ -19,7 +17,7 @@ class ReadingResultBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: const Color(0xff54C3FF),
+      backgroundColor: const Color(0xFF54C3FF),
       content: Padding(
         padding: const EdgeInsets.all(70.0),
         child: Column(
@@ -29,7 +27,7 @@ class ReadingResultBox extends StatelessWidget {
             const Text(
               "RESULT",
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.grey,
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
               ),
@@ -40,11 +38,14 @@ class ReadingResultBox extends StatelessWidget {
               backgroundColor: result == questionLength / 2
                   ? Colors.yellow
                   : result < questionLength / 2
-                      ? AppColors.darkRed
-                      : kCorrectAnswerColor,
+                      ? Colors.red
+                      : Colors.green,
               child: Text(
                 "$result/$questionLength",
-                style: const TextStyle(fontSize: 24.0),
+                style: const TextStyle(
+                  fontSize: 24.0,
+                  color: Colors.white
+                ),
               ),
             ),
             const SizedBox(height: 20.0),
@@ -55,7 +56,7 @@ class ReadingResultBox extends StatelessWidget {
                       ? 'Try Again ?'
                       : 'Great!',
               style: const TextStyle(
-                color: kNeutralAnswerColor,
+                color: Colors.grey,
               ),
             ),
             const SizedBox(height: 25.0),
@@ -63,7 +64,6 @@ class ReadingResultBox extends StatelessWidget {
               onTap: checkAnswerPress,
               child: const Text(
                 "Check Answer",
-                textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
@@ -76,7 +76,6 @@ class ReadingResultBox extends StatelessWidget {
               onTap: resetPress,
               child: const Text(
                 "Start Over",
-                textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
@@ -89,7 +88,6 @@ class ReadingResultBox extends StatelessWidget {
               onTap: nextExercisePress,
               child: const Text(
                 "Next Exercise",
-                textAlign: TextAlign.justify,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14.0,
