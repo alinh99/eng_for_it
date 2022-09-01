@@ -1,8 +1,8 @@
 import 'package:flutter_engforit/Screens/courses/components/course_card.dart';
-import 'package:flutter_engforit/Screens/enroll_lesson/listening.dart';
-import 'package:flutter_engforit/Screens/enroll_lesson/reading.dart';
-import 'package:flutter_engforit/Screens/enroll_lesson/speaking.dart';
-import 'package:flutter_engforit/Screens/enroll_lesson/writing.dart';
+import 'package:flutter_engforit/Screens/lesson_detail/listening_detail.dart';
+import 'package:flutter_engforit/Screens/lesson_detail/reading_detail.dart';
+import 'package:flutter_engforit/Screens/lesson_detail/speaking_detail.dart';
+import 'package:flutter_engforit/Screens/lesson_detail/writing_detail.dart';
 import 'package:flutter_engforit/components/category_cards.dart';
 import 'package:flutter_engforit/components/bottom_navigation_bar.dart';
 import 'package:flutter_engforit/constants.dart';
@@ -170,7 +170,7 @@ class _CoursesState extends State<Courses> {
                 bottomMargin: 16,
                 topMargin: 16,
                 tapped: () {
-                  Navigator.pushNamed(context, Reading.id);
+                  Navigator.pushNamed(context, ReadingDetail.id);
                 },
               ),
               CourseCard(
@@ -182,7 +182,7 @@ class _CoursesState extends State<Courses> {
                 bottomMargin: 16,
                 topMargin: 16,
                 tapped: () {
-                  Navigator.pushNamed(context, Listening.id);
+                  Navigator.pushNamed(context, ListeningDetail.id);
                 },
               ),
               CourseCard(
@@ -194,7 +194,7 @@ class _CoursesState extends State<Courses> {
                 bottomMargin: 16,
                 topMargin: 16,
                 tapped: () {
-                  Navigator.pushNamed(context, Speaking.id);
+                  Navigator.pushNamed(context, SpeakingDetail.id);
                 },
               ),
               CourseCard(
@@ -206,7 +206,7 @@ class _CoursesState extends State<Courses> {
                 bottomMargin: 32,
                 topMargin: 16,
                 tapped: () {
-                  Navigator.pushNamed(context, Writing.id);
+                  Navigator.pushNamed(context, WritingDetail.id);
                 },
               ),
             ],

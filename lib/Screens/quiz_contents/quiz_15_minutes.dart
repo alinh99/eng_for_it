@@ -154,6 +154,7 @@ class _Quiz15MinutesState extends State<Quiz15Minutes>
           if (snapshot.hasData) {
             var extractedData = snapshot.data as List<Quiz>;
             return Scaffold(
+              backgroundColor: const Color(0xFFEFF9FF),
               bottomNavigationBar: GestureDetector(
                 onTap: () {
                   nextQuestion((extractedData.length / 4.7).round());

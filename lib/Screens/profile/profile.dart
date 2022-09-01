@@ -24,6 +24,7 @@ class _ProfileState extends State<Profile> {
   String email;
   String url;
   Users users = Users();
+  final form = GlobalKey<FormState>();
   bool isSaved = false;
   final Storage _storage = Storage();
   @override
@@ -52,38 +53,36 @@ class _ProfileState extends State<Profile> {
                       ),
                       InformationData(
                         title: 'Your name',
-                        hintText:
-                            snapshot.hasData ? userData.name : 'Your name ...',
+                        hintText: userData.name,
                         icon: Icons.face_outlined,
+                        currentValue: userData.name,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       InformationData(
                         title: 'Your email',
-                        hintText: snapshot.hasData
-                            ? userData.email
-                            : 'Your email ...',
+                        hintText: userData.email,
                         icon: Icons.email,
+                        currentValue: userData.email,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       InformationData(
                         title: 'Your age',
-                        hintText:
-                            snapshot.hasData ? userData.age : 'Your age ...',
+                        hintText: userData.age,
                         icon: Icons.cake,
+                        currentValue: userData.age,
                       ),
                       const SizedBox(
                         height: 16,
                       ),
                       InformationData(
                         title: 'Your password',
-                        hintText: snapshot.hasData
-                            ? userData.password
-                            : 'Your password ...',
+                        hintText: userData.password,
                         icon: Icons.remove_red_eye,
+                        currentValue: userData.password,
                       ),
                       const SizedBox(
                         height: 32,
@@ -97,6 +96,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: GestureDetector(
                           onTap: () async {
+                            // if (form.currentState.validate()) {
                             setState(() {
                               isSaved = true;
                             });
@@ -109,6 +109,8 @@ class _ProfileState extends State<Profile> {
                               url ?? userData.photoUrl,
                               email ?? userData.email,
                             );
+                            // }
+
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           },

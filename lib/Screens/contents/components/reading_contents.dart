@@ -21,7 +21,7 @@ class _ReadingContentsState extends State<ReadingContents> {
   LessonDB db = LessonDB();
   int score = 0;
   bool isSummited = false;
-  List<Reading> lessons = [];
+  List<Reading> readingList = [];
   List<String> userAnswerList = [];
   List<String> realAnswerList = [];
   Future _lessons;
@@ -32,17 +32,17 @@ class _ReadingContentsState extends State<ReadingContents> {
 
   checkAnswer(int i) {
     userAnswerList.insert(i, "(${userAnswerTypes[i].text})");
-    realAnswerList.add(lessons[i].answer.keys.toString());
+    realAnswerList.add(readingList[i].answer.keys.toString());
     setState(() {
       isSummited = true;
-      realAnswerList[i] = lessons[i].answer.keys.toString();
+      realAnswerList[i] = readingList[i].answer.keys.toString();
     });
     if (userAnswerList.isEmpty) {
       score += 0;
       return false;
     } else {
       if (userAnswerList[i].toString().toLowerCase() ==
-          lessons[i].answer.keys.toString()) {
+          readingList[i].answer.keys.toString().toLowerCase()) {
         score += 1;
         return true;
       } else {
@@ -82,7 +82,7 @@ class _ReadingContentsState extends State<ReadingContents> {
     showDialog(
       context: context,
       builder: (ctx) => ReadingCheckAnswerBox(
-        lessonList: lessons.toSet().toList(),
+        lessonList: readingList.toSet().toList(),
       ),
     );
   }
@@ -110,7 +110,7 @@ class _ReadingContentsState extends State<ReadingContents> {
         buttonColor: const Color(0xff54C3FF),
         tapped: () {
           int i;
-          for (i = 0; i < lessons.toSet().toList().length; i++) {
+          for (i = 0; i < readingList.toSet().toList().length; i++) {
             checkAnswer(i);
           }
           submit(i);
@@ -119,134 +119,139 @@ class _ReadingContentsState extends State<ReadingContents> {
       body: Appbar(
         title: 'Reading',
         body: SingleChildScrollView(
-          child: FutureBuilder(
-              future: _lessons as Future<List<Object>>,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  var extractedData = snapshot.data as List<Object>;
-                  for (var i in extractedData.toSet().toList()) {
-                    lessons.add(i);
+            child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              FutureBuilder(
+                future: _lessons as Future<List<Object>>,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done ||
+                      snapshot.connectionState == ConnectionState.active) {
+                    if (snapshot.hasData) {
+                      var extractedData = snapshot.data as List<Object>;
+                      for (var i in extractedData.toSet().toList()) {
+                        readingList.add(i);
+                      }
+                      //print(readingList);
+                      return Container(
+                        margin: const EdgeInsets.only(
+                            top: 16, bottom: 8, left: 16, right: 16),
+                        height: MediaQuery.of(context).size.height,
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20),
+                          ),
+                          color: Colors.white,
+                        ),
+                        child: ListView.builder(
+                          itemCount: extractedData.length,
+                          physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics(),
+                          ),
+                          shrinkWrap: true,
+                          itemBuilder: ((context, index) {
+                            userAnswerTypes.add(TextEditingController());
+                            realAnswerList
+                                .add(readingList[index].answer.keys.toString());
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 16, left: 22, right: 24),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    readingList[index].titlePassage,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    readingList[index].passage,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    readingList[index].title,
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    "${index + 1}. ${readingList[index].question}",
+                                    textAlign: TextAlign.justify,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  TextField(
+                                    minLines: 1,
+                                    maxLines: 5,
+                                    decoration: const InputDecoration(
+                                      contentPadding: EdgeInsets.all(8),
+                                      hintText: 'Input your answer ...',
+                                      suffixIcon: Padding(
+                                        padding: EdgeInsets.all(8),
+                                        child: Icon(Icons.text_fields),
+                                      ),
+                                    ),
+                                    controller: userAnswerTypes[index],
+                                  ),
+                                ],
+                              ),
+                            );
+                          }),
+                        ),
+                      );
+                    }
+                  } else {
+                    return Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            height: 300,
+                          ),
+                          CircularProgressIndicator(),
+                          SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            "Please Wait while Questions are loading..",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              decoration: TextDecoration.none,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
                   }
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(
-                              top: 16, bottom: 8, left: 16, right: 16),
-                          height: MediaQuery.of(context).size.height,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: ListView.builder(
-                            itemCount: extractedData.length,
-                            physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics(),
-                            ),
-                            shrinkWrap: true,
-                            itemBuilder: ((context, index) {
-                              userAnswerTypes.add(TextEditingController());
-                              realAnswerList
-                                  .add(lessons[index].answer.keys.toString());
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 16, left: 22, right: 24),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      lessons[index].titlePassage,
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 16,
-                                    ),
-                                    Text(
-                                      lessons[index].passage,
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 16,
-                                    ),
-                                    Text(
-                                      lessons[index].title,
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 2,
-                                    ),
-                                    Text(
-                                      "${index + 1}. ${lessons[index].question}",
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    TextField(
-                                      minLines: 1,
-                                      maxLines: 5,
-                                      decoration: const InputDecoration(
-                                        contentPadding: EdgeInsets.all(8),
-                                        hintText: 'Input your answer ...',
-                                        suffixIcon: Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Icon(Icons.text_fields),
-                                        ),
-                                      ),
-                                      controller: userAnswerTypes[index],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        SizedBox(
-                          height: 300,
-                        ),
-                        CircularProgressIndicator(),
-                        SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          "Please Wait while Questions are loading..",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            decoration: TextDecoration.none,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              }),
-        ),
+                  return const Text("No data");
+                },
+              ),
+            ],
+          ),
+        )),
       ),
     );
   }

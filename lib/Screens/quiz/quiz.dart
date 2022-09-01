@@ -7,6 +7,8 @@ import 'package:flutter_engforit/Screens/quiz_contents/quiz_45_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_5_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_60_minutes.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
+import 'package:flutter_engforit/components/bottom_navigation_bar.dart';
+import 'package:flutter_engforit/enum.dart';
 import 'package:lottie/lottie.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -44,8 +46,19 @@ class _QuizScreenState extends State<QuizScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Appbar(
-      title: 'Quiz',
+    return Scaffold(
+      backgroundColor: const Color(0xFFEFF9FF),
+      bottomNavigationBar: const CustomBottomNavBar(selected: MenuState.quiz),
+      appBar: AppBar(
+        title: const Text(
+          'Games',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.black),
+        backgroundColor: Colors.white,
+        shadowColor: Colors.transparent,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

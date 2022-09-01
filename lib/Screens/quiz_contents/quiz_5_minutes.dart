@@ -113,7 +113,7 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Please select any option'),
+            content: Text('Please Select Any Option'),
             behavior: SnackBarBehavior.floating,
             margin: EdgeInsets.symmetric(vertical: 20),
           ),
@@ -154,6 +154,7 @@ class _Quiz5MinutesState extends State<Quiz5Minutes>
           if (snapshot.hasData) {
             var extractedData = snapshot.data as List<Quiz>;
             return Scaffold(
+              backgroundColor: const Color(0xFFEFF9FF),
               bottomNavigationBar: GestureDetector(
                 onTap: () {
                   nextQuestion((extractedData.length / 10).ceil());

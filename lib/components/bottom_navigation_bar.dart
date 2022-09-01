@@ -102,7 +102,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
                       icon: MenuState.quiz == widget.selected
                           ? CupertinoIcons.question_circle_fill
                           : CupertinoIcons.question_circle,
-                      text: MenuState.quiz == widget.selected ? 'Quiz' : '',
+                      text: MenuState.quiz == widget.selected ? 'Games' : '',
                       backgroundColor: MenuState.quiz == widget.selected
                           ? const Color(0xFF54C2FF)
                           : Colors.white,
