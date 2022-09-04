@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter_engforit/Screens/profile/components/information_data.dart';
 import 'package:flutter_engforit/Screens/profile/components/profile_pic.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +16,10 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  List userProfilesList = [];
+
+  String userID = "";
+
   String name;
   String age;
   String password;
@@ -36,11 +38,11 @@ class _ProfileState extends State<Profile> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            StreamBuilder(
+            StreamBuilder<Users>(
               stream: DatabaseService(uid: user.uid).userData,
               builder: (context, snapshot) {
-                Users userData = snapshot.data;
                 if (snapshot.hasData) {
+                  Users userData = snapshot.data;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -51,38 +53,147 @@ class _ProfileState extends State<Profile> {
                       const SizedBox(
                         height: 16,
                       ),
-                      InformationData(
-                        title: 'Your name',
-                        hintText: userData.name,
-                        icon: Icons.face_outlined,
-                        currentValue: userData.name,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      InformationData(
-                        title: 'Your email',
-                        hintText: userData.email,
-                        icon: Icons.email,
-                        currentValue: userData.email,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      InformationData(
-                        title: 'Your age',
-                        hintText: userData.age,
-                        icon: Icons.cake,
-                        currentValue: userData.age,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      InformationData(
-                        title: 'Your password',
-                        hintText: userData.password,
-                        icon: Icons.remove_red_eye,
-                        currentValue: userData.password,
+                      Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 24),
+                            alignment: Alignment.topLeft,
+                            child: const Text(
+                              'Your name',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              left: 24,
+                              right: 16,
+                            ),
+                            child: TextFormField(
+                              initialValue: userData.name,
+                              onChanged: (value) {
+                                name = value;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: const Icon(Icons.face_outlined),
+                                filled: true,
+                                fillColor: const Color(0xffD8DffD),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 24),
+                            alignment: Alignment.topLeft,
+                            child: const Text(
+                              'Your Age',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              left: 24,
+                              right: 16,
+                            ),
+                            child: TextFormField(
+                              initialValue: userData.age,
+                              onChanged: (value) {
+                                age = value;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: const Icon(Icons.cake),
+                                filled: true,
+                                fillColor: const Color(0xffD8DffD),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 24),
+                            alignment: Alignment.topLeft,
+                            child: const Text(
+                              'Your email',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              left: 24,
+                              right: 16,
+                            ),
+                            child: TextFormField(
+                              initialValue: userData.email,
+                              onChanged: (value) {
+                                email = value;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: const Icon(Icons.email),
+                                filled: true,
+                                fillColor: const Color(0xffD8DffD),
+                                //hintText: widget.hintText,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 24),
+                            alignment: Alignment.topLeft,
+                            child: const Text(
+                              'Your password',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                              top: 8,
+                              left: 24,
+                              right: 16,
+                            ),
+                            child: TextFormField(
+                              initialValue: userData.password,
+                              onChanged: (value) {
+                                password = value;
+                              },
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                suffixIcon: const Icon(Icons.remove_red_eye),
+                                filled: true,
+                                fillColor: const Color(0xffD8DffD),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 32,
@@ -96,7 +207,6 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: GestureDetector(
                           onTap: () async {
-                            // if (form.currentState.validate()) {
                             setState(() {
                               isSaved = true;
                             });
@@ -109,8 +219,6 @@ class _ProfileState extends State<Profile> {
                               url ?? userData.photoUrl,
                               email ?? userData.email,
                             );
-                            // }
-
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           },

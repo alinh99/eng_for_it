@@ -6,7 +6,6 @@ import 'package:flutter_engforit/Screens/quiz_contents/quiz_30_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_45_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_5_minutes.dart';
 import 'package:flutter_engforit/Screens/quiz_contents/quiz_60_minutes.dart';
-import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter_engforit/components/bottom_navigation_bar.dart';
 import 'package:flutter_engforit/enum.dart';
 import 'package:lottie/lottie.dart';
