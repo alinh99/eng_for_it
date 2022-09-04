@@ -16,10 +16,6 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  List userProfilesList = [];
-
-  String userID = "";
-
   String name;
   String age;
   String password;
@@ -207,18 +203,25 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: GestureDetector(
                           onTap: () async {
-                            setState(() {
-                              isSaved = true;
-                            });
-                            url = await _storage.uploadUserImage(
-                                File(ProfilePicState.image.path));
-                            await DatabaseService(uid: user.uid).updateUserInfo(
-                              name ?? userData.name,
-                              password ?? userData.password,
-                              age ?? userData.age,
-                              url ?? userData.photoUrl,
-                              email ?? userData.email,
-                            );
+                            if (url == null &&
+                                name == null &&
+                                password == null &&
+                                age == null &&
+                                email == null) {
+                              Navigator.pop(context);
+                            } else {
+                              url = await _storage.uploadUserImage(
+                                  File(ProfilePicState.image.path));
+                              await DatabaseService(uid: user.uid)
+                                  .updateUserInfo(
+                                name ?? userData.name,
+                                password ?? userData.password,
+                                age ?? userData.age,
+                                url ?? userData.photoUrl,
+                                email ?? userData.email,
+                              );
+                              
+                            }
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pop();
                           },
