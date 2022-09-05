@@ -16,6 +16,27 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Loading..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   String name;
   String age;
   String password;
@@ -203,13 +224,20 @@ class _ProfileState extends State<Profile> {
                         ),
                         child: GestureDetector(
                           onTap: () async {
+                            // setState(() {
+                            //   showLoaderDialog(context);
+                            // });
                             if (url == null &&
                                 name == null &&
                                 password == null &&
                                 age == null &&
                                 email == null) {
                               Navigator.pop(context);
-                            } else {
+                            } else if (url != null ||
+                                name != null ||
+                                password != null ||
+                                age != null ||
+                                email != null) {
                               url = await _storage.uploadUserImage(
                                   File(ProfilePicState.image.path));
                               await DatabaseService(uid: user.uid)
@@ -220,10 +248,9 @@ class _ProfileState extends State<Profile> {
                                 url ?? userData.photoUrl,
                                 email ?? userData.email,
                               );
-                              
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pop();
                             }
-                            // ignore: use_build_context_synchronously
-                            Navigator.of(context).pop();
                           },
                           child: const Text(
                             'Submit',

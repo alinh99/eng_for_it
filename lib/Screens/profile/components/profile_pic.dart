@@ -33,10 +33,10 @@ class ProfilePicState extends State<ProfilePic> {
     return Center(
       child: Container(
         margin: const EdgeInsets.only(top: 16),
-        child: widget.avatarUrl == null
+        child: widget.avatarUrl != null && isOldImage == true
             ? CircleAvatar(
-                backgroundColor: Colors.grey,
                 radius: 50,
+                backgroundImage: NetworkImage(widget.avatarUrl),
                 child: Stack(
                   children: [
                     Align(
@@ -61,10 +61,10 @@ class ProfilePicState extends State<ProfilePic> {
                   ],
                 ),
               )
-            : widget.avatarUrl != null && isOldImage == true
+            : widget.avatarUrl != null && isOldImage == false
                 ? CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(widget.avatarUrl),
+                    backgroundImage: Image.file(image).image,
                     child: Stack(
                       children: [
                         Align(
@@ -89,35 +89,34 @@ class ProfilePicState extends State<ProfilePic> {
                       ],
                     ),
                   )
-                : widget.avatarUrl != null && isOldImage == false
-                    ? CircleAvatar(
-                        radius: 50,
-                        backgroundImage: Image.file(image).image,
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(
-                                padding: const EdgeInsets.all(4),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: const Color(0xffD8DffD),
-                                ),
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    await updateImageProfile();
-                                  },
-                                  child: const Icon(
-                                    Icons.camera_alt_rounded,
-                                    color: Color(0xff778df8),
-                                  ),
-                                ),
+                : CircleAvatar(
+                    backgroundImage: Image.file(image).image,
+                    backgroundColor: Colors.grey,
+                    radius: 50,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color(0xffD8DffD),
+                            ),
+                            child: GestureDetector(
+                              onTap: () async {
+                                await updateImageProfile();
+                              },
+                              child: const Icon(
+                                Icons.camera_alt_rounded,
+                                color: Color(0xff778df8),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      )
-                    : null,
+                      ],
+                    ),
+                  ),
       ),
     );
   }

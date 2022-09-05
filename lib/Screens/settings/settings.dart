@@ -62,46 +62,49 @@ class _SettingsState extends State<Settings> {
                       builder: (context, snapshot) {
                         Users userData = snapshot.data;
                         if (snapshot.hasData) {
-                          return Row(
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(left: 24, top: 16),
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundImage:
-                                      NetworkImage(userData.photoUrl),
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                  margin:
+                                      const EdgeInsets.only(left: 24, top: 16),
+                                  child: CircleAvatar(
+                                    radius: 40,
+                                    backgroundImage:
+                                        NetworkImage(userData.photoUrl),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 16,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 16),
-                                    child: Text(
-                                      userData.name,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 16),
+                                      child: Text(
+                                        userData.name,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  Text(
-                                    userData.age,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.grey,
+                                    const SizedBox(
+                                      height: 8,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    Text(
+                                      userData.age,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           );
                         } else {
                           return Column(
