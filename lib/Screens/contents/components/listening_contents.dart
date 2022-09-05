@@ -98,6 +98,7 @@ class _ListeningContentsState extends State<ListeningContents> {
     setState(() {
       score = 0;
       userAnswerTypes.clear();
+      userAnswerList.clear();
       isSummited = false;
     });
     Navigator.pop(context);

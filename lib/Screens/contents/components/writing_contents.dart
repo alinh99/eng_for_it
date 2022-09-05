@@ -85,6 +85,7 @@ class _WritingContentsState extends State<WritingContents> {
       userAnswerTypes.text = '';
       userAnswerList.clear();
       isSummited = false;
+      userAnswerList.clear();
     });
     Navigator.pop(context);
   }
@@ -96,7 +97,7 @@ class _WritingContentsState extends State<WritingContents> {
           false, // disable dismiss function on clicking outside of box
       builder: (ctx) => WritingResultBox(
         result: score,
-        questionLength: questionLength,
+        questionLength: 1,
         resetPress: startOver,
         checkAnswerPress: () {
           answerKey(questionLength);
