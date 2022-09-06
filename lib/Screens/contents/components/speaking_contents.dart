@@ -115,180 +115,184 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                     physics: const BouncingScrollPhysics(),
                     itemCount: speaking.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 16, left: 16, right: 16),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height * 0.85,
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
-                                ),
-                                color: Colors.white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              //mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 16, left: 16),
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xFF7383C0),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(50)),
-                                      ),
-                                      child: const Icon(
-                                        Icons.speaker_notes,
-                                        size: 24,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Text(
-                                          'Your turn',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        const SizedBox(
-                                          height: 4,
-                                        ),
-                                        RichText(
-                                          text: TextSpan(
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium,
-                                            children: [
-                                              const TextSpan(text: 'Tap the '),
-                                              WidgetSpan(
-                                                child: Container(
-                                                  //padding: EdgeInsets.only(top: 4),
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                      Radius.circular(50),
-                                                    ),
-                                                    color: Color(0xFF7383C0),
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.keyboard_voice,
-                                                    size: 16,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                              const TextSpan(
-                                                  text:
-                                                      ' and record your voice.'),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                const Divider(
-                                  color: Colors.grey,
-                                  height: 32,
-                                  endIndent: 0,
-                                  indent: 0,
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                    left: 16,
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 16, left: 16, right: 16),
+                              // width: MediaQuery.of(context).size.width,
+                              // height: MediaQuery.of(context).size.height * 0.85,
+                              decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(20),
                                   ),
-                                  child: Text(
-                                    speaking[index].answer.keys.join(' '),
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: const [
-                                    SpeakingIconButton(
-                                        icon: Icons.volume_up_rounded),
-                                    SpeakingIconButton(
-                                        icon: Icons.slow_motion_video),
-                                    SpeakingIconButton(
-                                        icon: Icons.playlist_add_rounded),
-                                    SpeakingIconButton(
-                                        icon: Icons.flag_rounded),
-                                    SpeakingIconButton(icon: Icons.share),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Center(
-                                    child: Text(
-                                  'Score: ${(score * 100).toStringAsFixed(1)}%',
-                                  style: const TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
-                                const SizedBox(
-                                  height: 256,
-                                ),
-                                Center(
-                                  child: AvatarGlow(
-                                    animate: _isListening,
-                                    glowColor: const Color(0xFF7383C0),
-                                    endRadius: 75.0,
-                                    duration:
-                                        const Duration(milliseconds: 2000),
-                                    repeatPauseDuration:
-                                        const Duration(milliseconds: 100),
-                                    repeat: true,
-                                    child: FloatingActionButton(
-                                      onPressed: () {
-                                        _listen(speaking[index]
-                                            .answer
-                                            .keys
-                                            .join(''));
-                                        score = 0;
-                                        userAnswerList.clear();
-                                        realAnswerList.clear();
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(16),
+                                  color: Colors.white),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                //mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            top: 16, left: 16),
+                                        padding: const EdgeInsets.all(12),
                                         decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(50),
-                                          ),
                                           color: Color(0xFF7383C0),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(50)),
                                         ),
                                         child: const Icon(
-                                          Icons.keyboard_voice,
+                                          Icons.speaker_notes,
+                                          size: 24,
                                           color: Colors.white,
                                         ),
                                       ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Text(
+                                            'Your turn',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+                                          RichText(
+                                            text: TextSpan(
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium,
+                                              children: [
+                                                const TextSpan(
+                                                    text: 'Tap the '),
+                                                WidgetSpan(
+                                                  child: Container(
+                                                    //padding: EdgeInsets.only(top: 4),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.all(
+                                                        Radius.circular(50),
+                                                      ),
+                                                      color: Color(0xFF7383C0),
+                                                    ),
+                                                    child: const Icon(
+                                                      Icons.keyboard_voice,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const TextSpan(
+                                                    text:
+                                                        ' and record your voice.'),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const Divider(
+                                    color: Colors.grey,
+                                    height: 32,
+                                    endIndent: 0,
+                                    indent: 0,
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                      left: 16,
+                                    ),
+                                    child: Text(
+                                      speaking[index].answer.keys.join(' '),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 20,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Row(
+                                    children: const [
+                                      SpeakingIconButton(
+                                          icon: Icons.volume_up_rounded),
+                                      SpeakingIconButton(
+                                          icon: Icons.slow_motion_video),
+                                      SpeakingIconButton(
+                                          icon: Icons.playlist_add_rounded),
+                                      SpeakingIconButton(
+                                          icon: Icons.flag_rounded),
+                                      SpeakingIconButton(icon: Icons.share),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 8,
+                                  ),
+                                  Center(
+                                      child: Text(
+                                    'Score: ${(score * 100).toStringAsFixed(1)}%',
+                                    style: const TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  )),
+                                  const SizedBox(
+                                    height: 256,
+                                  ),
+                                  Center(
+                                    child: AvatarGlow(
+                                      animate: _isListening,
+                                      glowColor: const Color(0xFF7383C0),
+                                      endRadius: 75.0,
+                                      duration:
+                                          const Duration(milliseconds: 2000),
+                                      repeatPauseDuration:
+                                          const Duration(milliseconds: 100),
+                                      repeat: true,
+                                      child: FloatingActionButton(
+                                        onPressed: () {
+                                          _listen(speaking[index]
+                                              .answer
+                                              .keys
+                                              .join(''));
+                                          score = 0;
+                                          userAnswerList.clear();
+                                          realAnswerList.clear();
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.all(16),
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(50),
+                                            ),
+                                            color: Color(0xFF7383C0),
+                                          ),
+                                          child: const Icon(
+                                            Icons.keyboard_voice,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
                   );

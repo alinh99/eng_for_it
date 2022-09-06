@@ -20,7 +20,6 @@ class ReuseableCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
       ),
-      height: MediaQuery.of(context).size.height * 0.35,
       child: Column(
         children: [
           LottieAnimation(

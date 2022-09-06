@@ -149,6 +149,7 @@ class _WritingContentsState extends State<WritingContents> {
       body: Appbar(
         title: 'Writing',
         body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: FutureBuilder(
               future: _lessons as Future<List<Object>>,
               builder: (context, snapshot) {
