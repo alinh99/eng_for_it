@@ -8,7 +8,6 @@ import 'package:flutter_engforit/components/fixed_button.dart';
 import 'package:flutter_engforit/components/reuseable_card.dart';
 import 'package:language_tool/language_tool.dart';
 import 'package:lottie/lottie.dart';
-
 import 'writitng/writing_check_answer_box.dart';
 
 class WritingContents extends StatefulWidget {
