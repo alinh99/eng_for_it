@@ -40,9 +40,7 @@ class _SpeakingContentsState extends State<SpeakingContents> {
   _listen(String answer) async {
     if (!_isListening) {
       bool available = await _speech.initialize(
-        // ignore: avoid_print
         onStatus: (val) => print('onStatus: $val'),
-        // ignore: avoid_print
         onError: (val) => print('onError: $val'),
       );
 
@@ -57,17 +55,20 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                   .removeWhere((element) => userAnswerList.contains(''));
               userAnswerList = userAnswerList.toSet().toList().last.split(' ');
               realAnswerList.add(answer);
-              var newRealAnswerList =
+              realAnswerList =
                   realAnswerList.toSet().toList().join('').split(' ');
-              newRealAnswerList.removeLast();
+              if (realAnswerList.contains('?')) {
+                realAnswerList =
+                    realAnswerList.sublist(0, realAnswerList.length - 1);
+              }
+
+              // print(realAnswerList);
+              // print(realAnswerList.length);
               for (int i = 0; i < userAnswerList.toSet().toList().length; i++) {
-                if (newRealAnswerList
-                    .toSet()
-                    .toList()
-                    .contains(userAnswerList[i])) {
+                if (realAnswerList[i].contains(userAnswerList[i])) {
                   trueWords.add(userAnswerList[i]);
-                  score += trueWords.toSet().toList().length /
-                      newRealAnswerList.toSet().toList().length;
+                  score = trueWords.toSet().toList().length /
+                      realAnswerList.toSet().toList().length;
                 } else {
                   score = 0;
                 }
