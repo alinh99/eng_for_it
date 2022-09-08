@@ -3,8 +3,10 @@ import 'package:flutter_engforit/Screens/contents/models/lesson_db.dart';
 import 'package:flutter_engforit/Screens/contents/models/lessons.dart';
 import 'package:flutter_engforit/components/app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_engforit/constants.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:highlight_text/highlight_text.dart';
 
 class SpeakingContents extends StatefulWidget {
   const SpeakingContents({Key key, this.index}) : super(key: key);
@@ -61,9 +63,6 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                 realAnswerList =
                     realAnswerList.sublist(0, realAnswerList.length - 1);
               }
-
-              // print(realAnswerList);
-              // print(realAnswerList.length);
               for (int i = 0; i < userAnswerList.toSet().toList().length; i++) {
                 if (realAnswerList[i].contains(userAnswerList[i])) {
                   trueWords.add(userAnswerList[i]);
@@ -99,6 +98,17 @@ class _SpeakingContentsState extends State<SpeakingContents> {
 
   @override
   Widget build(BuildContext context) {
+    String sentences = trueWords.join('');
+    Map<String, HighlightedWord> words = {
+      sentences: HighlightedWord(
+        textStyle: const TextStyle(
+          color: Colors.green,
+          fontFamily: 'Nunito',
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    };
     return Scaffold(
       body: Appbar(
         title: 'Speaking',
@@ -214,13 +224,29 @@ class _SpeakingContentsState extends State<SpeakingContents> {
                                     margin: const EdgeInsets.only(
                                       left: 16,
                                     ),
-                                    child: Text(
-                                      speaking[index].answer.keys.join(' '),
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 20,
-                                      ),
-                                    ),
+                                    child: sentences.isNotEmpty
+                                        ? TextHighlight(
+                                            text: speaking[index]
+                                                .answer
+                                                .keys
+                                                .join(' '),
+                                            words: words,
+                                            textStyle: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20,
+                                              color: Colors.red,
+                                            ),
+                                          )
+                                        : Text(
+                                            speaking[index]
+                                                .answer
+                                                .keys
+                                                .join(' '),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20,
+                                            ),
+                                          ),
                                   ),
                                   const SizedBox(
                                     height: 8,

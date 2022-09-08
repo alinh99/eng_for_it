@@ -96,9 +96,10 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                     Map<String, HighlightedWord> words = {
                       getWrongWords(sentence): HighlightedWord(
                         textStyle: const TextStyle(
-                            color: Colors.red,
-                            fontFamily: 'Nunito',
-                            fontSize: 16),
+                          color: Colors.red,
+                          fontFamily: 'Nunito',
+                          fontSize: 16,
+                        ),
                       ),
                     };
                     if (snapshot.connectionState == ConnectionState.done ||
@@ -124,8 +125,7 @@ class _WritingCheckAnswerBoxState extends State<WritingCheckAnswerBox> {
                                 : const Center(
                                     child: Text(
                                       'Your Answer Must Be At Least 5 Words',
-                                      style:
-                                          TextStyle(color: Colors.red),
+                                      style: TextStyle(color: Colors.red),
                                       textAlign: TextAlign.center,
                                     ),
                                   ),
